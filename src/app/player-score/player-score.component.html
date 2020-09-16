@@ -1,4 +1,7 @@
 <div *ngIf="player">
-  <h2>Player ({{player.name}})</h2>
-  <h4>{{displayScore()}}</h4>
+  <h2 class="name">{{displyedName}}</h2>
+  <h4 class="points" [matTooltip]="pointsTooltip" matTooltipPosition="right">
+    {{player.score.wins}} points
+    <span>{{winRatio ? " - " + winRatio + "% win ratio" : ''}}</span>
+  </h4>
 </div>

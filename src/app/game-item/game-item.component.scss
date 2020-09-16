@@ -1,9 +1,29 @@
-img {
-  height: 150px;
-  user-select: none;
-}
-
 div {
-  height: 100px;
-  width: 90px;
+  width: fit-content;
+  min-width: 280px;
+  margin: 0;
+
+  img {
+    height: 150px;
+    user-select: none;
+    -webkit-user-drag: none;
+
+    &[data-played="true"] {
+      height: 280px;
+    }
+
+    &[data-played="false"] {
+      margin-left: 50px;
+      margin-right: 50px;
+
+      &:hover {
+        cursor: pointer;
+        filter: invert(22%) sepia(5%) saturate(6342%); // hue-rotate(356deg) brightness(108%) contrast(123%);
+      }
+    }
+
+    &[data-orientation="down"] {
+      transform: rotate(180deg);
+    }
+  }
 }

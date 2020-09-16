@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player, Score } from '../game.model';
+import { Player, PlayerType } from '../game.model';
 import { PlayersService } from '../players.service';
 
 @Component({
@@ -13,8 +13,13 @@ export class WelcomeComponent implements OnInit {
   title = "Welcome to the greatest Rock Paper Scissors of all time";
 
   player: Player = {
+    type: PlayerType.HUMAN,
     name: "",
-    score: {}
+    score: {
+      wins: 0,
+      losses: 0,
+      draws: 0
+    }
   };
 
   constructor(

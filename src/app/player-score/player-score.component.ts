@@ -1,28 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Player } from '../game.model';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import _round from 'lodash/round';
+import { Player, PlayerType } from '../game.model';
+
 
 @Component({
   selector: 'app-player-score[player]',
   templateUrl: './player-score.component.html',
   styleUrls: ['./player-score.component.scss']
 })
-export class PlayerScoreComponent implements OnInit {
+export class PlayerScoreComponent implements OnInit, DoCheck {
 
   @Input() player: Player;
 
+  displyedName: string;
+  winRatio: number | undefined;
+  pointsTooltip: string;
+
   constructor() { }
 
+  // Used instead of ngOnChanges because "Angular only calls the ngOnChanges hook when the value of the input property changes.
+  // The value of the player property is the reference to the player object. Angular doesn’t care that the player's own properties change"
+  ngDoCheck(): void {
+    this.calculateWinRatio()
+  }
+
   ngOnInit(): void {
+    this.displyedName = `${this.player.type === PlayerType.HUMAN ? "You" : "Computer"} (${this.player.name})`
   }
 
-  displayScore(): string {
-    const scores = []
+  calculateWinRatio() {
+    const gamesPlayed = this.player.score.wins + this.player.score.losses;
+    this.winRatio = gamesPlayed > 0 ? _round((this.player.score.wins / gamesPlayed) * 100) : undefined;
 
-    this.player.score.wins && scores.push(this.player.score.wins + " wins");
-    this.player.score.draws && scores.push(this.player.score.draws + " draws");
-    this.player.score.losses && scores.push(this.player.score.losses + " losses");
-
-    return scores.join(" - ") || " - "
+    this.pointsTooltip = `${this.player.score.wins || "no"} win${this.player.score.wins !== 1 ? "s" : ""}
+    , ${this.player.score.losses || "no"} loss${this.player.score.losses !== 1 ? "es" : ""}
+    , ${this.player.score.draws || "no"} draw${this.player.score.draws !== 1 ? "s" : ""}`
   }
-
 }

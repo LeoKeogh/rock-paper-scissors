@@ -1,3 +1,9 @@
-<img *ngIf="typeImgSrc" src="{{typeImgSrc}}">
-<div *ngIf="!typeImgSrc"></div>
-
+<div>
+  <img
+    *ngIf="itemType"
+    src="{{ typeImgSrc }}"
+    [attr.data-played]="played"
+    [attr.data-orientation]="orientation"
+    (click)="onGameItemClick()"
+  />
+</div>
