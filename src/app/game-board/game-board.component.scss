@@ -1,0 +1,17 @@
+.options {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0%);
+  margin: 0 auto;
+
+  app-game-item {
+    margin-left: 50px;
+    margin-right: 50px;
+
+    &:hover {
+      cursor: pointer;
+      filter: invert(22%) sepia(5%) saturate(6342%)// hue-rotate(356deg) brightness(108%) contrast(123%);
+    }
+  }
+}

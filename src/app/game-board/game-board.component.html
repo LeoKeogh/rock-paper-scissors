@@ -1,0 +1,6 @@
+<div class="options">
+  <app-game-item [itemType]="GameItemType.ROCK" (click)="onGameItemClick(GameItemType.ROCK)"></app-game-item>
+  <app-game-item [itemType]="GameItemType.PAPER" (click)="onGameItemClick(GameItemType.PAPER)"></app-game-item>
+  <app-game-item [itemType]="GameItemType.SCISSORS" (click)="onGameItemClick(GameItemType.SCISSORS)"></app-game-item>
+  <app-player-score [player]="player"></app-player-score>
+</div>

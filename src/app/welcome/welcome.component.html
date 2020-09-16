@@ -1,0 +1,15 @@
+<div class="input-container">
+  <h3>{{ title }}</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Player name</mat-label>
+    <input
+      matInput
+      placeholder="Please input your name"
+      [(ngModel)]="player.name"
+      (keyup.enter)="onSubmit()"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="!player.name" (click)="onSubmit()">
+    Continue
+  </button>
+</div>
