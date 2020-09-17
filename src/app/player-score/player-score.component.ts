@@ -13,7 +13,6 @@ export class PlayerScoreComponent implements OnInit, DoCheck {
   @Input() player: Player;
 
   displyedName: string;
-  winRatio: number | undefined;
   pointsTooltip: string;
 
   constructor() { }
@@ -25,15 +24,20 @@ export class PlayerScoreComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.displyedName = `${this.player.type === PlayerType.HUMAN ? "You" : "Computer"} (${this.player.name})`
+    this.displyedName = `${this.player.name} (${this.player.type === PlayerType.HUMAN ? "You" : "Computer"})`
   }
 
   calculateWinRatio() {
     const gamesPlayed = this.player.score.wins + this.player.score.losses;
-    this.winRatio = gamesPlayed > 0 ? _round((this.player.score.wins / gamesPlayed) * 100) : undefined;
 
-    this.pointsTooltip = `${this.player.score.wins || "no"} win${this.player.score.wins !== 1 ? "s" : ""}
+    this.pointsTooltip =
+    `(${this.player.score.wins || "no"} win${this.player.score.wins !== 1 ? "s" : ""}
     , ${this.player.score.losses || "no"} loss${this.player.score.losses !== 1 ? "es" : ""}
-    , ${this.player.score.draws || "no"} draw${this.player.score.draws !== 1 ? "s" : ""}`
+    , ${this.player.score.draws || "no"} draw${this.player.score.draws !== 1 ? "s" : ""})`
+
+    const winRatio = gamesPlayed > 0 ? _round((this.player.score.wins / gamesPlayed) * 100) : undefined;
+    if (winRatio) {
+      this.pointsTooltip = `${winRatio}% win ratio ${this.pointsTooltip}`
+    }
   }
 }

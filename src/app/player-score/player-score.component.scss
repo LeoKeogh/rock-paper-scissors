@@ -1,5 +1,21 @@
-.name, .points {
-  width: fit-content;
-  margin: 10px auto;
+
+.player-score {
+  display: flex;
+  flex-direction: column;
+
+  .name {
+    font-size: 2em;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .points {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+.points-tooltip {
+  font-family: 'Arcade Classic' !important;
 }
 

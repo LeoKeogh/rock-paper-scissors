@@ -19,17 +19,17 @@
     <div class="game-items">
       <app-game-item
         [itemType]="GameItemType.ROCK"
-        (onClick)="onGameItemClick(GameItemType.ROCK)"
+        (onClick)="onGameItemClick($event)"
       ></app-game-item>
       <app-game-item
         [itemType]="GameItemType.PAPER"
-        (click)="onGameItemClick(GameItemType.PAPER)"
+        (onClick)="onGameItemClick($event)"
       ></app-game-item>
       <app-game-item
         [itemType]="GameItemType.SCISSORS"
-        (click)="onGameItemClick(GameItemType.SCISSORS)"
+        (onClick)="onGameItemClick($event)"
       ></app-game-item>
     </div>
-    <app-player-score [player]="player"></app-player-score>
+    <app-player-score *ngIf="player" [player]="player"></app-player-score>
   </div>
 </div>

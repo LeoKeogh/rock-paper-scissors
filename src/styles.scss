@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-// html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@font-face {
+  font-family: "Arcade";
+  src: local("Arcade"), url(./assets/fonts/ARCADE.TTF) format("truetype");
+}
+
+@font-face {
+  font-family: "Arcade Classic";
+  src: local("Arcade Classic"), url(./assets/fonts/ARCADECLASSIC.TTF) format("truetype");
+}
+
+@font-face {
+  font-family: "Joystix Monospace";
+  src: local("Joystix Monospace"), url(./assets/fonts/joystix-monospace.ttf) format("truetype");
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Joystix Monospace"; }

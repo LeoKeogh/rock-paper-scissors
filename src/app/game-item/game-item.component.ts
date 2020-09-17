@@ -18,12 +18,12 @@ export class GameItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.itemType) {
-      this.typeImgSrc = `assets/${this.itemType}.png`
+      this.typeImgSrc = `assets/images/${this.itemType}.png`
     }
   }
 
   onGameItemClick() {
-    this.onClick && this.onClick.emit();
+    this.onClick && this.onClick.emit(this.itemType);
   }
 
   ngOnInit(): void {

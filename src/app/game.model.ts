@@ -1,7 +1,8 @@
 export interface Player {
   type: PlayerType,
   name: string,
-  score: Score
+  score: Score,
+  winRatio?: number
 }
 
 export enum PlayerType {
@@ -11,8 +12,18 @@ export enum PlayerType {
 
 export interface Score {
   wins: number,
-  losses: number,
   draws: number,
+  losses: number,
+}
+
+export const DefaultNewPlayer: Player = {
+  type: PlayerType.HUMAN,
+  name: "John Doe",
+  score: {
+    wins: 0,
+    draws: 0,
+    losses: 0,
+  }
 }
 
 export enum GameItemType {

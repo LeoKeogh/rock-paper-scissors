@@ -1,6 +1,7 @@
+import { Platform } from '@angular/cdk/platform';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player, PlayerType } from '../game.model';
+import { DefaultNewPlayer, Player, PlayerType } from '../game.model';
 import { PlayersService } from '../players.service';
 
 @Component({
@@ -10,17 +11,8 @@ import { PlayersService } from '../players.service';
 })
 export class WelcomeComponent implements OnInit {
 
-  title = "Welcome to the greatest Rock Paper Scissors of all time";
-
-  player: Player = {
-    type: PlayerType.HUMAN,
-    name: "",
-    score: {
-      wins: 0,
-      losses: 0,
-      draws: 0
-    }
-  };
+  playerName?: string;
+  player?: Player;
 
   constructor(
     private playersService: PlayersService,
@@ -30,8 +22,24 @@ export class WelcomeComponent implements OnInit {
   }
 
   onSubmit() {
-    this.playersService.setCurrentPlayer(this.player);
-    this.router.navigate(["/game-board"]);
+    this.playerName = this.playerName?.trim();
+    if (!this.playerName) { return; }
+
+    this.playersService.addPlayer({ ...DefaultNewPlayer, name: this.playerName })
+    .subscribe(
+      player => {
+        this.router.navigate(["/game-board"], {queryParams: {playerName: this.playerName}});
+      }
+    )
+  }
+
+  search(name: string) {
+    this.playersService.getPlayer(name)
+    .subscribe(
+      players => {
+        this.player = players[0];
+      }
+    )
   }
 
 }
