@@ -1,5 +1,4 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import _round from 'lodash/round';
 import { Player, PlayerType } from '../game.model';
 
 
@@ -8,36 +7,34 @@ import { Player, PlayerType } from '../game.model';
   templateUrl: './player-score.component.html',
   styleUrls: ['./player-score.component.scss']
 })
-export class PlayerScoreComponent implements OnInit, DoCheck {
+export class PlayerScoreComponent implements DoCheck {
 
-  @Input() player: Player;
+  @Input() player?: Player;
 
   displyedName: string;
   pointsTooltip: string;
 
-  constructor() { }
-
   // Used instead of ngOnChanges because "Angular only calls the ngOnChanges hook when the value of the input property changes.
   // The value of the player property is the reference to the player object. Angular doesn’t care that the player's own properties change"
   ngDoCheck(): void {
-    this.calculateWinRatio()
+    if (this.player) {
+      this.displyedName = `${this.player.name} ${this.player.type === PlayerType.COMPUTER ? "(Computer)" : ""}`
+      this.refreshTooltip()
+    }
   }
 
-  ngOnInit(): void {
-    this.displyedName = `${this.player.name} (${this.player.type === PlayerType.HUMAN ? "You" : "Computer"})`
-  }
+  refreshTooltip() {
+    if (!this.player || !this.player.currentScore) {
+      return
+    }
 
-  calculateWinRatio() {
-    const gamesPlayed = this.player.score.wins + this.player.score.losses;
+    this.pointsTooltip = 'Current game: ' +
+      `${this.player.currentScore.won || "no"} win${this.player.currentScore.won !== 1 ? "s" : ""}
+    - ${this.player.currentScore.lost || "no"} loss${this.player.currentScore.lost !== 1 ? "es" : ""}
+    - ${this.player.currentScore.draw || "no"} draw${this.player.currentScore.draw !== 1 ? "s" : ""}`
 
-    this.pointsTooltip =
-    `(${this.player.score.wins || "no"} win${this.player.score.wins !== 1 ? "s" : ""}
-    , ${this.player.score.losses || "no"} loss${this.player.score.losses !== 1 ? "es" : ""}
-    , ${this.player.score.draws || "no"} draw${this.player.score.draws !== 1 ? "s" : ""})`
-
-    const winRatio = gamesPlayed > 0 ? _round((this.player.score.wins / gamesPlayed) * 100) : undefined;
-    if (winRatio) {
-      this.pointsTooltip = `${winRatio}% win ratio ${this.pointsTooltip}`
+    if (this.player.currentScore.winRatio) {
+      this.pointsTooltip+= ` (${this.player.currentScore.winRatio}% win / loss  ratio)`
     }
   }
 }

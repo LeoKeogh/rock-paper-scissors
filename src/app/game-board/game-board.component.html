@@ -1,17 +1,23 @@
 <div class="game-board">
+  <span class="title">Rock Paper Scissors</span>
   <div class="computer-options">
     <app-player-score [player]="computer"></app-player-score>
   </div>
 
   <div class="played">
     <app-game-item
-      [itemType]="computerSelectedItem"
+      [itemType]="computer?.playedItem"
       [played]="true"
       [orientation]="GameItemOrientation.DOWN"
+      [opponentItemType]="human?.playedItem"
     ></app-game-item>
+    <div *ngIf="resultMessage" class="message" [attr.data-game-result]="humanResult">
+      {{ resultMessage }}
+    </div>
     <app-game-item
-      [itemType]="playerSelectedItem"
+      [itemType]="human?.playedItem"
       [played]="true"
+      [opponentItemType]="computer?.playedItem"
     ></app-game-item>
   </div>
 
@@ -30,6 +36,14 @@
         (onClick)="onGameItemClick($event)"
       ></app-game-item>
     </div>
-    <app-player-score *ngIf="player" [player]="player"></app-player-score>
+    <app-player-score [player]="human"></app-player-score>
+    <div class="button" (click)="onNewPlayerClick()">New Player</div>
   </div>
+</div>
+
+<div class="hall-of-fame">
+  <app-hall-of-fame
+    [players]="humanPlayers"
+    [playerName]="human?.name"
+  ></app-hall-of-fame>
 </div>

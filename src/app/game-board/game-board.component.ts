@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GameItemOrientation, GameItemType, GameResult, Player, PlayerType } from '../game.model';
-import { PlayersService } from '../players.service';
+import _cloneDeep from 'lodash/cloneDeep';
+import _delay from 'lodash/delay';
+import _omit from 'lodash/omit';
+import _round from 'lodash/round';
+import { GameItemOrientation, GameItemType, GameResult, NewPlayer, Player, PlayerType, Score } from '../game.model';
+import { GameService } from '../game.service';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-game-board',
@@ -14,24 +19,16 @@ export class GameBoardComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private playersService: PlayersService,
-    private _snackBar: MatSnackBar) { }
+    private playerService: PlayerService,
+    private gameService: GameService) { }
 
-  player?: Player;
-  computer: Player = {
-    type: PlayerType.COMPUTER,
-    name: "HAL",
-    score: {
-      wins: 0,
-      losses: 0,
-      draws: 0
-    }
-  };
+  human?: Player;
+  computer: Player = { ..._cloneDeep(NewPlayer), name: "HAL", type: PlayerType.COMPUTER };
 
-  playerSelectedItem?: GameItemType;
-  computerSelectedItem?: GameItemType;
+  humanResult?: GameResult;
+  resultMessage?: string;
 
-  playerResult?: GameResult;
+  humanPlayers: Player[];
 
   GameItemType = GameItemType;
   GameItemOrientation = GameItemOrientation;
@@ -40,53 +37,44 @@ export class GameBoardComponent implements OnInit {
     const playerName = this.activatedRoute.snapshot.queryParams["playerName"]
     !playerName && this.router.navigate(["/welcome"]);
 
-    this.playersService.getPlayer(playerName).subscribe(player => {
+    this.playerService.getPlayer(playerName).subscribe(player => {
       !player && this.router.navigate(["/welcome"]);
-      this.player = player;
+      this.human = { ..._cloneDeep(NewPlayer), ...player };
+    })
+
+    this.playerService.getPlayers().subscribe(players => {
+      this.humanPlayers = players;
     })
   }
 
-  async onGameItemClick(itemType: GameItemType): Promise<void> {
-    this.playerSelectedItem = itemType;
-    this.computerSelectedItem = undefined;
-    this.playerResult = undefined;
-    this.computerSelectedItem = await this.chooseRandomItemType();
+  onNewPlayerClick() {
+    this.router.navigate(["/welcome"]);
+  }
 
-    if (this.playerSelectedItem !== this.computerSelectedItem) {
-      const playerWon =
-        this.computerSelectedItem === GameItemType.ROCK && this.playerSelectedItem === GameItemType.PAPER
-        || this.computerSelectedItem === GameItemType.PAPER && this.playerSelectedItem === GameItemType.SCISSORS
-        || this.computerSelectedItem === GameItemType.SCISSORS && this.playerSelectedItem === GameItemType.ROCK
+  onGameItemClick(itemType: GameItemType): void {
+    this.human.playedItem = itemType;
+    this.computer.playedItem = undefined;
+    this.resultMessage = undefined;
+    // small delay for a bit of suspense and animation
+    _delay(() => {
+      this.computer.playedItem = this.gameService.getRandomItemType();
 
-      if (playerWon) {
-        this.playerResult = GameResult.WIN;
-        this._snackBar.open("You WIN!!", "Close", { duration: 500 })
-        this.player.score.wins++;
-        this.computer.score.losses++;
-      } else {
-        this.playerResult = GameResult.LOSE;
-        this._snackBar.open("You LOSE!!", "Close", { duration: 500 })
-        this.player.score.losses++;
-        this.computer.score.wins++;
+      this.humanResult = this.gameService.determineResultAndRefreshScores(this.human, this.computer);
+
+      switch (this.humanResult) {
+        case GameResult.WIN:
+          this.resultMessage = "Victory!"
+          break;
+        case GameResult.DRAW:
+          this.resultMessage = "Stalemate!"
+          break;
+        case GameResult.LOSE:
+          this.resultMessage = "Defeat!"
+          break;
       }
-    } else {
-      this.playerResult = GameResult.DRAW
-      this._snackBar.open("It's a DRAW!!", "Close", { duration: 500 })
-      this.player.score.draws++;
-      this.computer.score.draws++;
-    }
 
-    this.playersService.updatePlayer(this.player).subscribe();
-  }
+      this.playerService.updatePlayer(_omit(this.human, "currentScore", "playedItem")).subscribe();
 
-  async chooseRandomItemType(): Promise<GameItemType> {
-    const enumValues = [GameItemType.ROCK, GameItemType.PAPER, GameItemType.SCISSORS]
-    const randomIndex = Math.floor(Math.random() * enumValues.length)
-    await this.delay(500)
-    return enumValues[randomIndex]
-  }
-
-  private delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    }, 300)
   }
 }

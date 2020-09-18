@@ -1,45 +1,34 @@
-import { Platform } from '@angular/cdk/platform';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DefaultNewPlayer, Player, PlayerType } from '../game.model';
-import { PlayersService } from '../players.service';
+import { NewPlayer, PlayerType } from '../game.model';
+import { PlayerService } from '../player.service';
+import _cloneDeep from 'lodash/cloneDeep';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
 
   playerName?: string;
-  player?: Player;
 
   constructor(
-    private playersService: PlayersService,
+    private playerService: PlayerService,
     private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
   onSubmit() {
-    this.playerName = this.playerName?.trim();
+    this.playerName = this.playerName?.trim()?.toLowerCase();
     if (!this.playerName) { return; }
 
-    this.playersService.addPlayer({ ...DefaultNewPlayer, name: this.playerName })
+    this.playerService.getPlayer(this.playerName)
     .subscribe(
       player => {
+        if (!player) {
+          this.playerService.addPlayer({..._cloneDeep(NewPlayer), name: this.playerName, type: PlayerType.HUMAN}).subscribe()
+        }
         this.router.navigate(["/game-board"], {queryParams: {playerName: this.playerName}});
       }
     )
   }
-
-  search(name: string) {
-    this.playersService.getPlayer(name)
-    .subscribe(
-      players => {
-        this.player = players[0];
-      }
-    )
-  }
-
 }

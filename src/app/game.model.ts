@@ -1,30 +1,40 @@
 export interface Player {
   type: PlayerType,
   name: string,
-  score: Score,
-  winRatio?: number
+  playedItem?: GameItemType,
+  currentScore?: Score,
+  totalScore?: Score
 }
 
 export enum PlayerType {
-  HUMAN,
-  COMPUTER
+  HUMAN = "human",
+  COMPUTER = "computer"
+}
+
+export const NewPlayer: Player = {
+  type: PlayerType.HUMAN,
+  name: "John Doe",
+  currentScore: {
+    won: 0,
+    draw: 0,
+    lost: 0,
+    winRatio: 0
+  },
+  totalScore: {
+    won: 0,
+    draw: 0,
+    lost: 0,
+    winRatio: 0
+  }
 }
 
 export interface Score {
-  wins: number,
-  draws: number,
-  losses: number,
+  won: number,
+  draw: number,
+  lost: number,
+  winRatio: number
 }
 
-export const DefaultNewPlayer: Player = {
-  type: PlayerType.HUMAN,
-  name: "John Doe",
-  score: {
-    wins: 0,
-    draws: 0,
-    losses: 0,
-  }
-}
 
 export enum GameItemType {
   ROCK = "rock",
@@ -40,5 +50,5 @@ export enum GameItemOrientation {
 export enum GameResult {
   WIN = "win",
   LOSE = "lose",
-  DRAW = "win",
+  DRAW = "draw",
 }

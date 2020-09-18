@@ -7,7 +7,7 @@ import { Player } from './game.model';
 @Injectable({
   providedIn: 'root'
 })
-export class PlayersService {
+export class PlayerService {
 
   private playersUrl = 'api/players';  // URL to web api
 
@@ -18,19 +18,24 @@ export class PlayersService {
   constructor(private http: HttpClient) { }
 
   addPlayer(player: Player): Observable<Player> {
-    console.log("addPlayer", player);
-
     return this.http.post<Player>(this.playersUrl, player, this.httpOptions).pipe(
       tap((newPlayer: Player) => console.log(`added player`, newPlayer)),
       catchError(this.handleError<Player>('addPlayer'))
     );
   }
 
-  getPlayer(playerName: string): Observable<Player> {
+  getPlayer(playerName: string): Observable<Player | undefined> {
     const url = `${this.playersUrl}/${playerName}`;
-    return this.http.get<Player>(url).pipe(
+    return this.http.get<Player | undefined>(url).pipe(
       tap(player => console.log(`fetched player`, player)),
       catchError(this.handleError<Player>(`getPlayer name=${playerName}`))
+    );
+  }
+
+  getPlayers(): Observable<Player[]> {
+    return this.http.get<Player[]>(this.playersUrl).pipe(
+      tap(players => console.log(`fetched players`, players)),
+      catchError(this.handleError<Player[]>(`getPlayers`))
     );
   }
 
@@ -50,11 +55,7 @@ export class PlayersService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
+      console.error(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

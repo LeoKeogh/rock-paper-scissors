@@ -5,6 +5,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: -webkit-linear-gradient(red, blue);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .input-container {
@@ -12,5 +15,52 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 80vh;
+  height: 100vh;
+}
+
+.button {
+
+  font-size: x-large;
+
+  &[data-disabled="true"] {
+    cursor: default;
+    color: rgba(165, 42, 42, 0.127);
+    border-color: rgba(165, 42, 42, 0.127);
+  }
+
+  &[data-disabled="false"] {
+    animation: fading 4s infinite;
+  }
+
+  @keyframes fading {
+    0% {
+      color: green;
+      border-color: green
+    }
+    50% {
+      color: blue;
+      border-color: blue
+    }
+    100% {
+      color: red;
+      border-color: red
+    }
+  }
+
+  &:hover {
+    animation: none;
+  }
+}
+
+.mat-input-element, .ng-star-inserted {
+  font-family: 'Joystix' !important;
+}
+
+/* Remove chrome's ugly input autofill style */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    box-shadow: 0 0 0 30px white inset;
+    -webkit-box-shadow: 0 0 0 30px white inset;
 }

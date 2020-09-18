@@ -1,18 +1,14 @@
 <span class="title">Rock Paper Scissors</span>
 <div class="input-container">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Player name</mat-label>
     <input
-      #name
       matInput
-      placeholder="Please input your name"
       [(ngModel)]="playerName"
       (keyup.enter)="onSubmit()"
-      (input)="search(name.value)"
     />
-    <mat-hint>Rank: 3 (win ratio 30%)</mat-hint>
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="!playerName" (click)="onSubmit()">
-    Continue
-  </button>
+  <div class="button" [attr.data-disabled]="!playerName" (click)="onSubmit()" [matTooltip]="!playerName ? 'Please enter a player name' : ''">
+    Start
+  </div>
 </div>

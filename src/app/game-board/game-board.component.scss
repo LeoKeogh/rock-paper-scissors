@@ -1,4 +1,32 @@
 .game-board {
+  .title {
+    font-size: 1.5em;
+    word-spacing: 5px;
+    background: -webkit-linear-gradient(red, blue);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    position: absolute;
+    top: 0;
+    animation: movefromwelcome 0.6s;
+  }
+
+  @keyframes movefromwelcome {
+    from {
+      font-size: 4em;
+      word-spacing: 25px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    to {
+      font-size: 1.5em;
+      word-spacing: 5px;
+      position: absolute;
+      top: 0;
+    }
+  }
 
   .computer-options {
     margin: auto;
@@ -6,11 +34,55 @@
 
   .played {
     height: 600px;
-    width: fit-content;
+    // width: fit-content;
     margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    padding-bottom: 10px;
+    position: relative;
+
+    .message {
+      text-align: center;
+      font-size: 50px !important;
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      z-index: 1;
+
+      &[data-game-result="win"] {
+        color: green;
+      }
+
+      &[data-game-result="draw"] {
+        color: orange;
+      }
+
+      &[data-game-result="lose"] {
+        color: red;
+      }
+
+      -webkit-animation: zoomin 0.6s;
+      animation: zoomin 0.6s;
+    }
+
+    @-webkit-keyframes zoomin {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes zoomin {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
   }
 
   .player-options {
@@ -22,4 +94,12 @@
       justify-content: space-between;
     }
   }
+}
+
+.hall-of-fame {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 600px;
 }

@@ -1,6 +1,7 @@
-<div class="player-score" *ngIf="player">
+<mat-spinner *ngIf="!player" [diameter]="70"></mat-spinner>
+<div *ngIf="player" class="player-score">
   <span class="name">{{displyedName}}</span>
   <span class="points" [matTooltip]="pointsTooltip" matTooltipClass="points-tooltip" matTooltipPosition="right">
-    {{player.score.wins}} points
+    {{player.currentScore?.won}} points
   </span>
 </div>

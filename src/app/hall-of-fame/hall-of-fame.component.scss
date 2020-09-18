@@ -1,0 +1,29 @@
+.hall-of-fame-title {
+  font-size: 1.5em;
+  width: fit-content;
+  margin: auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.table-container {
+  height: 50vh;
+  overflow-y: auto;
+
+  table {
+    width: 100%;
+
+    .mat-header-cell,
+    .mat-cell {
+      font-family: "Joystix" !important;
+      text-align: center;
+      color: unset;
+    }
+
+    .current-player {
+      color: blue;
+    }
+  }
+}

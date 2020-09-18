@@ -2,11 +2,16 @@
 .player-score {
   display: flex;
   flex-direction: column;
+  min-height: 70px;
 
   .name {
     font-size: 2em;
     width: fit-content;
     margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 670px;
   }
 
   .points {
@@ -19,3 +24,6 @@
   font-family: 'Arcade Classic' !important;
 }
 
+mat-spinner {
+  margin: auto;
+}

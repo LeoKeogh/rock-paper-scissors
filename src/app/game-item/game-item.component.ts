@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { GameItemOrientation, GameItemType } from '../game.model';
 
 @Component({
@@ -6,9 +6,11 @@ import { GameItemOrientation, GameItemType } from '../game.model';
   templateUrl: './game-item.component.html',
   styleUrls: ['./game-item.component.scss']
 })
-export class GameItemComponent implements OnInit, OnChanges {
+export class GameItemComponent implements OnChanges {
 
   @Input() itemType?: GameItemType;
+  @Input() opponentItemType?: GameItemType;
+
   typeImgSrc?: string;
 
   @Input() played: boolean = false;
@@ -18,15 +20,13 @@ export class GameItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.itemType) {
-      this.typeImgSrc = `assets/images/${this.itemType}.png`
+      this.typeImgSrc = this.opponentItemType ?
+      `assets/images/${this.itemType}-vs-${this.opponentItemType}.png`
+      : `assets/images/${this.itemType}.png`
     }
   }
 
   onGameItemClick() {
     this.onClick && this.onClick.emit(this.itemType);
   }
-
-  ngOnInit(): void {
-  }
-
 }
