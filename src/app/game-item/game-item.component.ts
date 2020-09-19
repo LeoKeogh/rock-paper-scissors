@@ -16,11 +16,13 @@ export class GameItemComponent implements OnChanges {
   @Input() played: boolean = false;
   @Input() orientation: GameItemOrientation = GameItemOrientation.UP
 
+  @Input() goreEnabled: boolean = false;
+
   @Output() onClick?: EventEmitter<any> = new EventEmitter();
 
   ngOnChanges(): void {
     if (this.itemType) {
-      this.typeImgSrc = this.opponentItemType ?
+      this.typeImgSrc = this.opponentItemType && this.goreEnabled ?
       `assets/images/${this.itemType}-vs-${this.opponentItemType}.png`
       : `assets/images/${this.itemType}.png`
     }

@@ -33,6 +33,8 @@ export class GameBoardComponent implements OnInit {
   GameItemType = GameItemType;
   GameItemOrientation = GameItemOrientation;
 
+  goreEnabled: boolean = false;
+
   ngOnInit(): void {
     const playerName = this.activatedRoute.snapshot.queryParams["playerName"]
     !playerName && this.router.navigate(["/welcome"]);
@@ -45,10 +47,17 @@ export class GameBoardComponent implements OnInit {
     this.playerService.getPlayers().subscribe(players => {
       this.humanPlayers = players;
     })
+
+    this.goreEnabled = localStorage.getItem("goreEnabled") === "true";
   }
 
   onNewPlayerClick() {
     this.router.navigate(["/welcome"]);
+  }
+
+  onGoreSwitchClick() {
+    this.goreEnabled = !this.goreEnabled;
+    localStorage.setItem("goreEnabled", `${this.goreEnabled}`);
   }
 
   onGameItemClick(itemType: GameItemType): void {

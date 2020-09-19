@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Player } from './game.model';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Player } from './game.model';
 })
 export class PlayerService {
 
-  private playersUrl = 'api/players';  // URL to web api
+  playersUrl = 'api/players';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,7 +19,6 @@ export class PlayerService {
 
   addPlayer(player: Player): Observable<Player> {
     return this.http.post<Player>(this.playersUrl, player, this.httpOptions).pipe(
-      tap((newPlayer: Player) => console.log(`added player`, newPlayer)),
       catchError(this.handleError<Player>('addPlayer'))
     );
   }
@@ -27,21 +26,18 @@ export class PlayerService {
   getPlayer(playerName: string): Observable<Player | undefined> {
     const url = `${this.playersUrl}/${playerName}`;
     return this.http.get<Player | undefined>(url).pipe(
-      tap(player => console.log(`fetched player`, player)),
       catchError(this.handleError<Player>(`getPlayer name=${playerName}`))
     );
   }
 
   getPlayers(): Observable<Player[]> {
     return this.http.get<Player[]>(this.playersUrl).pipe(
-      tap(players => console.log(`fetched players`, players)),
       catchError(this.handleError<Player[]>(`getPlayers`))
     );
   }
 
   updatePlayer(player: Player): Observable<Player> {
     return this.http.put(this.playersUrl, player, this.httpOptions).pipe(
-      tap(_ => console.log(`updated player`,  player)),
       catchError(this.handleError<any>('updatePlayer'))
     );
   }

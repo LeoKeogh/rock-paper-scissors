@@ -1,5 +1,9 @@
 <div class="game-board">
   <span class="title">Rock Paper Scissors</span>
+  <div class="buttons">
+    <div class="button" (click)="onNewPlayerClick()">New Player</div>
+    <div class="button" (click)="onGoreSwitchClick()">{{goreEnabled ? "Disable Gore" : "Enable Gore"}}</div>
+  </div>
   <div class="computer-options">
     <app-player-score [player]="computer"></app-player-score>
   </div>
@@ -10,6 +14,7 @@
       [played]="true"
       [orientation]="GameItemOrientation.DOWN"
       [opponentItemType]="human?.playedItem"
+      [goreEnabled]="goreEnabled"
     ></app-game-item>
     <div *ngIf="resultMessage" class="message" [attr.data-game-result]="humanResult">
       {{ resultMessage }}
@@ -18,6 +23,7 @@
       [itemType]="human?.playedItem"
       [played]="true"
       [opponentItemType]="computer?.playedItem"
+      [goreEnabled]="goreEnabled"
     ></app-game-item>
   </div>
 
@@ -37,7 +43,6 @@
       ></app-game-item>
     </div>
     <app-player-score [player]="human"></app-player-score>
-    <div class="button" (click)="onNewPlayerClick()">New Player</div>
   </div>
 </div>
 

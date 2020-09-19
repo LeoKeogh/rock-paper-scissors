@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,9 +33,7 @@ import { HallOfFameComponent } from './hall-of-fame/hall-of-fame.component';
     BrowserAnimationsModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule,
     MatTooltipModule,
-    MatSnackBarModule,
     MatTableModule,
     MatProgressSpinnerModule,
     HttpClientModule,
@@ -48,7 +44,7 @@ import { HallOfFameComponent } from './hall-of-fame/hall-of-fame.component';
       InMemoryAndLocalStorageDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

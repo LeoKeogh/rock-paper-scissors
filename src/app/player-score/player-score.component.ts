@@ -11,6 +11,7 @@ export class PlayerScoreComponent implements DoCheck {
 
   @Input() player?: Player;
 
+  displyedPoints: string;
   displyedName: string;
   pointsTooltip: string;
 
@@ -18,7 +19,8 @@ export class PlayerScoreComponent implements DoCheck {
   // The value of the player property is the reference to the player object. Angular doesn’t care that the player's own properties change"
   ngDoCheck(): void {
     if (this.player) {
-      this.displyedName = `${this.player.name} ${this.player.type === PlayerType.COMPUTER ? "(Computer)" : ""}`
+      this.displyedPoints = `${this.player.currentScore.won} Point${this.player.currentScore.won !== 1 ? 's' : ''}`
+      this.displyedName = `${this.player.name}${this.player.type === PlayerType.COMPUTER ? " (Computer)" : ""}`
       this.refreshTooltip()
     }
   }
@@ -29,9 +31,9 @@ export class PlayerScoreComponent implements DoCheck {
     }
 
     this.pointsTooltip = 'Current game: ' +
-      `${this.player.currentScore.won || "no"} win${this.player.currentScore.won !== 1 ? "s" : ""}
-    - ${this.player.currentScore.lost || "no"} loss${this.player.currentScore.lost !== 1 ? "es" : ""}
-    - ${this.player.currentScore.draw || "no"} draw${this.player.currentScore.draw !== 1 ? "s" : ""}`
+      `${this.player.currentScore.won || "no"} win${this.player.currentScore.won !== 1 ? "s" : ""}` +
+      ` - ${this.player.currentScore.lost || "no"} loss${this.player.currentScore.lost !== 1 ? "es" : ""}` +
+      ` - ${this.player.currentScore.draw || "no"} draw${this.player.currentScore.draw !== 1 ? "s" : ""}`
 
     if (this.player.currentScore.winRatio) {
       this.pointsTooltip+= ` (${this.player.currentScore.winRatio}% win / loss  ratio)`

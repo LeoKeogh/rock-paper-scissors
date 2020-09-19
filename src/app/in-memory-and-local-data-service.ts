@@ -72,8 +72,8 @@ export class InMemoryAndLocalStorageDataService implements InMemoryDbService {
     try {
       const localStorageValue = localStorage.getItem(this.localStorageDbKey)
       // decode from base64 (to confuse cheaters ;))
-      // const playerDbJson = localStorageValue ? atob(localStorage.getItem(this.localStorageDbKey)) : "[]"
-      const playerDbJson = localStorageValue || "[]"
+      const playerDbJson = localStorageValue ? atob(localStorage.getItem(this.localStorageDbKey)) : "[]"
+      // const playerDbJson = localStorageValue || "[]"
       this.players = JSON.parse(playerDbJson);
     } catch (e) {
       console.error("Failed to retrive local storage data (data corrupted?)");
@@ -83,8 +83,8 @@ export class InMemoryAndLocalStorageDataService implements InMemoryDbService {
 
   private persistToLocalStorage() {
     // encode in base64 to confuse cheaters ;)
-    // const localStorageValue = btoa(JSON.stringify(this.players));
-    const localStorageValue = JSON.stringify(this.players);
+    const localStorageValue = btoa(JSON.stringify(this.players));
+    // const localStorageValue = JSON.stringify(this.players);
     localStorage.setItem(this.localStorageDbKey, localStorageValue);
   }
 
