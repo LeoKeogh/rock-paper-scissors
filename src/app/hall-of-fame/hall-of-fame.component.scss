@@ -1,29 +1,38 @@
-.hall-of-fame-title {
-  font-size: 1.5em;
-  width: fit-content;
-  margin: auto;
-}
 
-mat-spinner {
-  margin: auto;
-}
+.hall-of-fame {
+  position: absolute;
+  top: 0;
+  right: 0;
 
-.table-container {
-  height: 50vh;
-  overflow-y: auto;
+  width: 600px;
 
-  table {
-    width: 100%;
+  .hall-of-fame-title {
+    font-size: 1.5em;
+    width: fit-content;
+    margin: auto;
+  }
 
-    .mat-header-cell,
-    .mat-cell {
-      font-family: "Joystix" !important;
-      text-align: center;
-      color: unset;
-    }
+  mat-spinner {
+    margin: auto;
+  }
 
-    .current-player {
-      color: blue;
+  .table-container {
+    height: 50vh;
+    overflow-y: auto;
+
+    table {
+      width: 100%;
+
+      .mat-header-cell,
+      .mat-cell {
+        font-family: "Joystix" !important;
+        text-align: center;
+        color: unset;
+      }
+
+      .current-player {
+        color: blue;
+      }
     }
   }
-}
+  }

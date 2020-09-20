@@ -1,10 +1,10 @@
-div {
+.game-item {
   width: fit-content;
   margin: auto;
 
   img {
     height: 150px;
-    margin: auto;
+    // margin: auto;
     user-select: none;
     -webkit-user-drag: none;
 
@@ -13,8 +13,8 @@ div {
     }
 
     &[data-played="false"] {
-      margin-left: 50px;
-      margin-right: 50px;
+      // margin-left: 50px;
+      // margin-right: 50px;
 
       &:hover {
         cursor: pointer;
@@ -30,30 +30,32 @@ div {
 
 .animate-top {
   position: relative;
-  animation: animatetop 0.4s;
+  animation: animatetop 0.8s;
 }
 @keyframes animatetop {
-  from {
+  0% {
     top: -300px;
-    opacity: 0;
   }
-  to {
+  50% {
+    top: 100px;
+  }
+  100% {
     top: 0;
-    opacity: 1;
   }
 }
 
 .animate-bottom {
   position: relative;
-  animation: animatebottom 0.4s;
+  animation: animatebottom 0.9s;
 }
 @keyframes animatebottom {
-  from {
+  0% {
     bottom: -200px;
-    opacity: 0;
   }
-  to {
+  50% {
+    bottom: 100px;
+  }
+  100% {
     bottom: 0;
-    opacity: 1;
   }
 }

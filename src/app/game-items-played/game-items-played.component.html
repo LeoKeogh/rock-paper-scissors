@@ -1,0 +1,24 @@
+<div class="game-items-played">
+  <app-game-item
+    id="computerItem"
+    [itemType]="computerItemType"
+    [played]="true"
+    [orientation]="GameItemOrientation.DOWN"
+    [opponentItemType]="humanItemType"
+    [goreEnabled]="goreEnabled"
+  ></app-game-item>
+  <div
+    *ngIf="resultMessage"
+    class="message"
+    [attr.data-game-result]="humanResult"
+  >
+    {{ resultMessage }}
+  </div>
+  <app-game-item
+    id="humanItem"
+    [itemType]="humanItemType"
+    [played]="true"
+    [opponentItemType]="computerItemType"
+    [goreEnabled]="goreEnabled"
+  ></app-game-item>
+</div>

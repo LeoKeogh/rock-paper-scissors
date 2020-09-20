@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import _cloneDeep from 'lodash/cloneDeep';
 import _delay from 'lodash/delay';
 import _omit from 'lodash/omit';
-import _round from 'lodash/round';
-import { GameItemOrientation, GameItemType, GameResult, NewPlayer, Player, PlayerType, Score } from '../game.model';
+import { GameItemOrientation, GameItemType, GameResult, NewPlayer, Player, PlayerType } from '../game.model';
 import { GameService } from '../game.service';
 import { PlayerService } from '../player.service';
 
@@ -51,7 +49,7 @@ export class GameBoardComponent implements OnInit {
     this.goreEnabled = localStorage.getItem("goreEnabled") === "true";
   }
 
-  onNewPlayerClick() {
+  onNewGameClick() {
     this.router.navigate(["/welcome"]);
   }
 
@@ -61,29 +59,17 @@ export class GameBoardComponent implements OnInit {
   }
 
   onGameItemClick(itemType: GameItemType): void {
-    this.human.playedItem = itemType;
+    this.human.playedItem = undefined;
     this.computer.playedItem = undefined;
     this.resultMessage = undefined;
     // small delay for a bit of suspense and animation
     _delay(() => {
+      this.human.playedItem = itemType;
       this.computer.playedItem = this.gameService.getRandomItemType();
 
       this.humanResult = this.gameService.determineResultAndRefreshScores(this.human, this.computer);
 
-      switch (this.humanResult) {
-        case GameResult.WIN:
-          this.resultMessage = "Victory!"
-          break;
-        case GameResult.DRAW:
-          this.resultMessage = "Stalemate!"
-          break;
-        case GameResult.LOSE:
-          this.resultMessage = "Defeat!"
-          break;
-      }
-
       this.playerService.updatePlayer(_omit(this.human, "currentScore", "playedItem")).subscribe();
-
     }, 300)
   }
 }

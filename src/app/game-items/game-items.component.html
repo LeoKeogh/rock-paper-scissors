@@ -1,0 +1,14 @@
+<div class="game-items">
+  <app-game-item
+    [itemType]="GameItemType.ROCK"
+    (onClick)="onGameItemClick($event)"
+  ></app-game-item>
+  <app-game-item
+    [itemType]="GameItemType.PAPER"
+    (onClick)="onGameItemClick($event)"
+  ></app-game-item>
+  <app-game-item
+    [itemType]="GameItemType.SCISSORS"
+    (onClick)="onGameItemClick($event)"
+  ></app-game-item>
+</div>

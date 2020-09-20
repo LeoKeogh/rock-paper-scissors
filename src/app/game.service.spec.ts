@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import _cloneDeep from 'lodash/cloneDeep';
 import { GameItemType, GameResult, NewPlayer, Player, PlayerType } from './game.model';
-
 import { GameService } from './game.service';
 
-import _cloneDeep from 'lodash/cloneDeep'
+
 
 describe('GameService', () => {
   let service: GameService;

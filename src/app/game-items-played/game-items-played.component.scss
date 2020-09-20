@@ -1,0 +1,51 @@
+.game-items-played {
+  height: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  position: relative;
+
+  .message {
+    text-align: center;
+    font-size: 50px !important;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    z-index: 1;
+
+    &[data-game-result="win"] {
+      color: green;
+    }
+
+    &[data-game-result="draw"] {
+      color: orange;
+    }
+
+    &[data-game-result="lose"] {
+      color: red;
+    }
+
+    -webkit-animation: zoomin 0.6s;
+    animation: zoomin 0.6s;
+  }
+
+  @-webkit-keyframes zoomin {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes zoomin {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}

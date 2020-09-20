@@ -71,7 +71,7 @@ describe('WelcomeComponent', () => {
     expectInputToHaveValue('', true);
   });
 
-  it('should create activate start button when player name entered', () => {
+  it('should create activate start button when player name entered', (done) => {
     expect(component).toBeTruthy();
     expect(component.playerName).toBeUndefined();
 
@@ -81,10 +81,12 @@ describe('WelcomeComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expectInputToHaveValue(component.playerName, false);
+
+      done()
     })
   });
 
-  it('should add player and navigate to /game-board after new user clicks start', () => {
+  it('should add player and navigate to /game-board after new user clicks start', (done) => {
     playerServiceSpy.getPlayer.and.returnValue(of(undefined));
 
     expect(component).toBeTruthy();
@@ -99,10 +101,12 @@ describe('WelcomeComponent', () => {
       startButton.click();
       expect(playerServiceSpy.addPlayer).toHaveBeenCalledWith(expectedNewPlayer)
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/game-board'], {queryParams: {playerName: expectedNewPlayer.name}})
+
+      done()
     })
   });
 
-  it('should navigate to /game-board after existing user clicks start', () => {
+  it('should navigate to /game-board after existing user clicks start', (done) => {
     playerServiceSpy.getPlayer.and.returnValue(of(existingPlayer));
 
     expect(component).toBeTruthy();
@@ -117,6 +121,8 @@ describe('WelcomeComponent', () => {
       startButton.click();
       expect(playerServiceSpy.addPlayer).not.toHaveBeenCalledWith(existingPlayer)
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/game-board'], {queryParams: {playerName: existingPlayer.name}})
+
+      done()
     })
   });
 });

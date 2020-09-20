@@ -4,7 +4,7 @@ import { GameItemOrientation, GameItemType } from '../game.model';
 @Component({
   selector: 'app-game-item',
   templateUrl: './game-item.component.html',
-  styleUrls: ['./game-item.component.scss']
+  styleUrls: ['./game-item.component.scss'],
 })
 export class GameItemComponent implements OnChanges {
 

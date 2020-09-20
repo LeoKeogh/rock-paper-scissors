@@ -1,52 +1,27 @@
 <div class="game-board">
   <span class="title">Rock Paper Scissors</span>
   <div class="buttons">
-    <div class="button" (click)="onNewPlayerClick()">New Player</div>
-    <div class="button" (click)="onGoreSwitchClick()">{{goreEnabled ? "Disable Gore" : "Enable Gore"}}</div>
+    <div class="new-game-button button" (click)="onNewGameClick()">New Game</div>
+    <div class="enable-gore-button button" (click)="onGoreSwitchClick()">
+      {{ goreEnabled ? "Disable Gore" : "Enable Gore" }}
+    </div>
   </div>
   <div class="computer-options">
     <app-player-score [player]="computer"></app-player-score>
   </div>
 
-  <div class="played">
-    <app-game-item
-      [itemType]="computer?.playedItem"
-      [played]="true"
-      [orientation]="GameItemOrientation.DOWN"
-      [opponentItemType]="human?.playedItem"
-      [goreEnabled]="goreEnabled"
-    ></app-game-item>
-    <div *ngIf="resultMessage" class="message" [attr.data-game-result]="humanResult">
-      {{ resultMessage }}
-    </div>
-    <app-game-item
-      [itemType]="human?.playedItem"
-      [played]="true"
-      [opponentItemType]="computer?.playedItem"
-      [goreEnabled]="goreEnabled"
-    ></app-game-item>
-  </div>
+  <app-game-items-played
+    [computerItemType]="computer?.playedItem"
+    [humanItemType]="human?.playedItem"
+    [goreEnabled]="goreEnabled"
+    [humanResult]="humanResult"
+  ></app-game-items-played>
 
   <div class="player-options">
-    <div class="game-items">
-      <app-game-item
-        [itemType]="GameItemType.ROCK"
-        (onClick)="onGameItemClick($event)"
-      ></app-game-item>
-      <app-game-item
-        [itemType]="GameItemType.PAPER"
-        (onClick)="onGameItemClick($event)"
-      ></app-game-item>
-      <app-game-item
-        [itemType]="GameItemType.SCISSORS"
-        (onClick)="onGameItemClick($event)"
-      ></app-game-item>
-    </div>
+    <app-game-items (onClick)="onGameItemClick($event)"></app-game-items>
     <app-player-score [player]="human"></app-player-score>
   </div>
-</div>
 
-<div class="hall-of-fame">
   <app-hall-of-fame
     [players]="humanPlayers"
     [playerName]="human?.name"

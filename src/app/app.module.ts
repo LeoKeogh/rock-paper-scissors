@@ -16,6 +16,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryAndLocalStorageDataService } from './in-memory-and-local-data-service';
 import { HttpClientModule } from '@angular/common/http';
 import { HallOfFameComponent } from './hall-of-fame/hall-of-fame.component';
+import { GameItemsComponent } from './game-items/game-items.component';
+import { GameItemsPlayedComponent } from './game-items-played/game-items-played.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { HallOfFameComponent } from './hall-of-fame/hall-of-fame.component';
     GameBoardComponent,
     GameItemComponent,
     PlayerScoreComponent,
-    HallOfFameComponent
+    HallOfFameComponent,
+    GameItemsComponent,
+    GameItemsPlayedComponent
   ],
   imports: [
     BrowserModule,
