@@ -12,6 +12,9 @@ Some screen previews:
 
 ### Game board page (with Hall of Fame)
 ![Game board screen](src/assets/previews/game-board.jpg)
+
+after play:
+
 ![Game board with rock screen](src/assets/previews/game-board-rock-play.jpg)
 
 
