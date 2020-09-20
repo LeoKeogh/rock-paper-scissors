@@ -62,7 +62,7 @@ export class GameBoardComponent implements OnInit {
     this.human.playedItem = undefined;
     this.computer.playedItem = undefined;
     this.resultMessage = undefined;
-    // small delay for a bit of suspense and animation
+    // small delay for css animation
     _delay(() => {
       this.human.playedItem = itemType;
       this.computer.playedItem = this.gameService.getRandomItemType();
@@ -70,6 +70,6 @@ export class GameBoardComponent implements OnInit {
       this.humanResult = this.gameService.determineResultAndRefreshScores(this.human, this.computer);
 
       this.playerService.updatePlayer(_omit(this.human, "currentScore", "playedItem")).subscribe();
-    }, 300)
+    }, 50)
   }
 }

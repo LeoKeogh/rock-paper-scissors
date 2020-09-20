@@ -51,11 +51,7 @@
       <ng-container matColumnDef="winRatio">
         <th mat-header-cell *matHeaderCellDef>W/L Ratio</th>
         <td mat-cell *matCellDef="let player">
-          {{
-            player.totalScore.winRatio
-              ? player.totalScore.winRatio + "%"
-              : "N/A"
-          }}
+          {{ player.totalScore.winRatio + "%" }}
         </td>
       </ng-container>
 

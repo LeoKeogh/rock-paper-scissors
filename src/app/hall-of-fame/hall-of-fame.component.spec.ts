@@ -110,7 +110,7 @@ describe('HallOfFameComponent', () => {
         expect(row.children[3].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.won}`);
         expect(row.children[4].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.draw}`);
         expect(row.children[5].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.lost}`);
-        expect(row.children[6].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.winRatio ? rankedPlayers[index].totalScore.winRatio + '%' : 'N/A'}`);
+        expect(row.children[6].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.winRatio}%`);
 
         if (rankedPlayers[index].name == component.playerName) {
           expect(row.classList.contains('current-player')).toBeTrue();

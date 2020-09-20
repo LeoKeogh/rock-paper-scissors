@@ -4,9 +4,9 @@ import { Observable, of } from 'rxjs';
 import { Player } from './game.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class InMemoryAndLocalStorageDataService implements InMemoryDbService {
+export class InLocalStorageDataService {
   localStorageDbKey = "playerDb"
 
   players: Player[]
@@ -94,4 +94,5 @@ export class InMemoryAndLocalStorageDataService implements InMemoryDbService {
     options.url = url;
     return options;
   }
+
 }

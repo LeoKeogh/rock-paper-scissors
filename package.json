@@ -1,6 +1,10 @@
 {
   "name": "rock-paper-scissors",
-  "version": "0.0.0",
+  "author": {
+    "name": "Leo Keogh",
+    "email": "leo.keogh@gmail.com"
+  },
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

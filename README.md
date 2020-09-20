@@ -1,4 +1,19 @@
-# RockPaperScissors
+# Rock Paper Scissors
+
+The game was developped by Leo Keogh.
+It's currently an Alpha with no backend for proper data persistence. For now, it uses the browser's local storage for saving player scores.
+
+Development time: 5 days
+
+Some screen previews:
+
+### Welcome page
+![Welcome screen](src/assets/previews/welcome.jpg)
+
+### Game board page (with Hall of Fame)
+![Game board screen](src/assets/previews/game-board.jpg)
+![Game board with rock screen](src/assets/previews/game-board-rock-play.jpg)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.0.
 

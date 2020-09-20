@@ -4,7 +4,6 @@
 
   img {
     height: 150px;
-    // margin: auto;
     user-select: none;
     -webkit-user-drag: none;
 
@@ -13,9 +12,6 @@
     }
 
     &[data-played="false"] {
-      // margin-left: 50px;
-      // margin-right: 50px;
-
       &:hover {
         cursor: pointer;
         filter: invert(22%) sepia(5%) saturate(6342%);

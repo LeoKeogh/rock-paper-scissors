@@ -13,7 +13,7 @@ import { GameItemComponent } from './game-item/game-item.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PlayerScoreComponent } from './player-score/player-score.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryAndLocalStorageDataService } from './in-memory-and-local-data-service';
+import { InLocalStorageDataService } from './in-local-storage-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HallOfFameComponent } from './hall-of-fame/hall-of-fame.component';
 import { GameItemsComponent } from './game-items/game-items.component';
@@ -45,7 +45,7 @@ import { GameItemsPlayedComponent } from './game-items-played/game-items-played.
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryAndLocalStorageDataService, { dataEncapsulation: false }
+      InLocalStorageDataService, { dataEncapsulation: false }
     )
   ],
   providers: [HttpClientModule],
