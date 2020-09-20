@@ -1,10 +1,8 @@
 # Rock Paper Scissors Game
 
-Developped by Leo Keogh.
+Game developped over 5 days by Leo Keogh.
 
-It has no backend for proper data persistence. It uses the browser's local storage (bad!) for saving player scores.
-
-Development length: 5 days
+The application has no backend for proper data persistence. It uses the browser's local storage (bad!) for saving player scores.
 
 ## Previews
 
