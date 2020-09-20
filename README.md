@@ -1,11 +1,12 @@
-# Rock Paper Scissors
+# Rock Paper Scissors Game
 
-The game was developped by Leo Keogh.
-It's currently an Alpha with no backend for proper data persistence. For now, it uses the browser's local storage for saving player scores.
+Developped by Leo Keogh.
 
-Development time: 5 days
+It has no backend for proper data persistence. It uses the browser's local storage (bad!) for saving player scores.
 
-Some screen previews:
+Development length: 5 days
+
+## Previews
 
 ### Welcome page
 ![Welcome screen](src/assets/previews/welcome.jpg)
