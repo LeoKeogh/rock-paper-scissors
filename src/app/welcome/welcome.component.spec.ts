@@ -20,6 +20,7 @@ describe('WelcomeComponent', () => {
   const playerServiceSpy: jasmine.SpyObj<PlayerService> = jasmine.createSpyObj('playerService', ['getPlayer', 'addPlayer'])
   playerServiceSpy.addPlayer.and.returnValue(of(undefined));
 
+  let titleDiv: HTMLDivElement;
   let nameInput: HTMLInputElement;
   let startButton: HTMLElement;
 
@@ -39,6 +40,7 @@ describe('WelcomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
+    titleDiv = fixture.nativeElement.getElementsByClassName('title')[0];
     nameInput = fixture.nativeElement.querySelector('input');
     startButton = fixture.nativeElement.getElementsByClassName('button')[0]
   });
@@ -66,6 +68,7 @@ describe('WelcomeComponent', () => {
 
   it('should create with empty player name and disabled start button', () => {
     expect(component).toBeTruthy();
+    expect(titleDiv).toBeTruthy();
     expect(component.playerName).toBeUndefined();
 
     expectInputToHaveValue('', true);
@@ -73,6 +76,7 @@ describe('WelcomeComponent', () => {
 
   it('should create activate start button when player name entered', (done) => {
     expect(component).toBeTruthy();
+    expect(titleDiv).toBeTruthy();
     expect(component.playerName).toBeUndefined();
 
     expectInputToHaveValue('', true);
@@ -90,6 +94,7 @@ describe('WelcomeComponent', () => {
     playerServiceSpy.getPlayer.and.returnValue(of(undefined));
 
     expect(component).toBeTruthy();
+    expect(titleDiv).toBeTruthy();
     expect(component.playerName).toBeUndefined();
 
     expectInputToHaveValue('', true);
@@ -110,6 +115,7 @@ describe('WelcomeComponent', () => {
     playerServiceSpy.getPlayer.and.returnValue(of(existingPlayer));
 
     expect(component).toBeTruthy();
+    expect(titleDiv).toBeTruthy();
     expect(component.playerName).toBeUndefined();
 
     expectInputToHaveValue('', true);

@@ -2,6 +2,10 @@
 
 Game designed and created by Leo Keogh.
 
+## Browser compatibility
+- Full (recommended): Chrome (latest, tested: 85.0.4183.83), Firefox (latest, tested: 80.0.1)
+- Partial (CSS problems): Edge (latest, tested: 44.18362.449.0)
+
 ## Assets
 All images and fonts used are free and no attribution is required
 
@@ -10,7 +14,7 @@ The application does not have a separate backend for proper data persistence.
 
 A REST backend is mocked by an InMemoryDbService (InLocalStorageDataService) which uses the browser's local storage (not secure!) for saving player scores (the application can be restarted without losing player scores).
 
-## Previews
+## Preview
 
 ### Welcome page
 ![Welcome screen](src/assets/previews/welcome.jpg)
