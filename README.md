@@ -1,8 +1,14 @@
 # Rock Paper Scissors Game
 
-Game developped over 5 days by Leo Keogh.
+Game designed and created by Leo Keogh.
 
-The application has no backend for proper data persistence. It uses the browser's local storage (bad!) for saving player scores.
+## Assets
+All images and fonts used are free and no attribution is required
+
+## Backend
+The application does not have a separate backend for proper data persistence.
+
+A REST backend is mocked by an InMemoryDbService (InLocalStorageDataService) which uses the browser's local storage (not secure!) for saving player scores (the application can be restarted without losing player scores).
 
 ## Previews
 

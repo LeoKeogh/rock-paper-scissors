@@ -1,13 +1,12 @@
-
 .hall-of-fame {
   position: absolute;
   top: 0;
   right: 0;
 
-  width: 600px;
+  width: 35vw;
 
   .hall-of-fame-title {
-    font-size: 1.5em;
+    font-size: 3vmin;
     width: fit-content;
     margin: auto;
   }
@@ -17,17 +16,29 @@
   }
 
   .table-container {
-    height: 50vh;
+    height: 50vmin;
     overflow-y: auto;
 
     table {
       width: 100%;
 
+      .mat-row {
+        height: 5vh !important;
+      }
+
       .mat-header-cell,
       .mat-cell {
         font-family: "Joystix" !important;
+        font-size: 1.8vh;
         text-align: center;
         color: unset;
+      }
+
+      .cdk-column-name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 10vw;
       }
 
       .current-player {
@@ -35,4 +46,9 @@
       }
     }
   }
+}
+
+  .name-tooltip {
+    font-family: 'Arcade Classic' !important;
   }
+  

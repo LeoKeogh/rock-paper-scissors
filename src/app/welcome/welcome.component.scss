@@ -1,6 +1,6 @@
 .title {
-  font-size: 4em;
-  word-spacing: 25px;
+  font-size: 4vw;
+  word-spacing: 0.5vmin;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -20,8 +20,7 @@
 }
 
 .button {
-
-  font-size: x-large;
+  font-size: 1.5vw;
 
   &[data-disabled="true"] {
     cursor: default;

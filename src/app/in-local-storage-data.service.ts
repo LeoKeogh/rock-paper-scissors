@@ -6,7 +6,7 @@ import { Player } from './game.model';
 @Injectable({
   providedIn: 'root'
 })
-export class InLocalStorageDataService {
+export class InLocalStorageDataService implements InMemoryDbService {
   localStorageDbKey = "playerDb"
 
   players: Player[]

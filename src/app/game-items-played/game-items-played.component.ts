@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { GameItemOrientation, GameItemType, GameResult } from '../game.model';
+import _delay from 'lodash/delay';
 
 @Component({
   selector: 'app-game-items-played',
@@ -24,17 +25,22 @@ export class GameItemsPlayedComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
 
-    switch (this.humanResult) {
-      case GameResult.WIN:
-        this.resultMessage = "Victory!"
-        break;
-      case GameResult.DRAW:
-        this.resultMessage = "Stalemate!"
-        break;
-      case GameResult.LOSE:
-        this.resultMessage = "Defeat!"
-        break;
-    }
+    this.resultMessage = undefined;
+
+    // small delay for css animation
+    _delay( () => {
+      switch (this.humanResult) {
+        case GameResult.WIN:
+          this.resultMessage = "Victory!"
+          break;
+        case GameResult.DRAW:
+          this.resultMessage = "Stalemate!"
+          break;
+        case GameResult.LOSE:
+          this.resultMessage = "Defeat!"
+          break;
+      }
+    }, 10)
 
   }
 

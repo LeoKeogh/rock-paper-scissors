@@ -1,17 +1,22 @@
 .game-item {
   width: fit-content;
   margin: auto;
+  height: 100%;
+  float: right;
+
+  &[data-played="true"] {
+    height: 50%;
+    float: none;
+  }
 
   img {
-    height: 150px;
+    height: 100%;
     user-select: none;
     -webkit-user-drag: none;
 
-    &[data-played="true"] {
-      height: 280px;
-    }
-
     &[data-played="false"] {
+      padding-left: 50px;
+
       &:hover {
         cursor: pointer;
         filter: invert(22%) sepia(5%) saturate(6342%);

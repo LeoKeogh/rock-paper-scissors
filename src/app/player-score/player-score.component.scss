@@ -2,19 +2,21 @@
 .player-score {
   display: flex;
   flex-direction: column;
-  min-height: 70px;
+  height: 8vh;
 
   .name {
-    font-size: 2em;
+    font-size: 4vmin;
     width: fit-content;
     margin: 0 auto;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 670px;
+    padding-top: 5px;
   }
 
   .points {
+    font-size: 2vmin;
     width: fit-content;
     margin: 0 auto;
   }

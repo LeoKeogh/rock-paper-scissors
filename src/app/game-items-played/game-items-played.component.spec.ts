@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameItemComponent } from '../game-item/game-item.component';
 import { GameItemType, GameResult } from '../game.model';
+import _delay from 'lodash/delay';
 
 import { GameItemsPlayedComponent } from './game-items-played.component';
 
@@ -10,7 +11,6 @@ describe('GameItemsPlayedComponent', () => {
   let fixture: ComponentFixture<TestGameItemsPlayedComponent>;
 
   let appGameItems: HTMLElement[];
-  let messageDiv: HTMLDivElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,7 +24,6 @@ describe('GameItemsPlayedComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     appGameItems = fixture.nativeElement.querySelectorAll('app-game-item');
-    messageDiv = fixture.nativeElement.getElementsByClassName('message')[0];
   });
 
   const expectAppGameItems = (withMessage: string) => {
@@ -41,15 +40,10 @@ describe('GameItemsPlayedComponent', () => {
     expect(appGameItems[1].getAttribute("ng-reflect-item-type")).toEqual(component.humanItemType);
     expect(appGameItems[1].getAttribute("ng-reflect-opponent-item-type")).toEqual(component.computerItemType);
     expect(appGameItems[1].getAttribute("ng-reflect-gore-enabled")).toEqual(`${component.goreEnabled}`);
-
-    messageDiv = fixture.nativeElement.getElementsByClassName('message')[0];
-    expect(messageDiv.textContent.trim()).toEqual(withMessage);
-
   }
 
   it('should display 2 game items with human victory', (done) => {
     expect(component).toBeTruthy();
-    expect(messageDiv).toBeFalsy();
 
     component.humanItemType = GameItemType.SCISSORS;
     component.computerItemType = GameItemType.PAPER;
@@ -67,7 +61,6 @@ describe('GameItemsPlayedComponent', () => {
 
   it('should display 2 game items with human defeat', (done) => {
     expect(component).toBeTruthy();
-    expect(messageDiv).toBeFalsy();
 
     component.humanItemType = GameItemType.PAPER;
     component.computerItemType = GameItemType.ROCK;
@@ -84,7 +77,6 @@ describe('GameItemsPlayedComponent', () => {
 
   it('should display 2 game items with stalemate', (done) => {
     expect(component).toBeTruthy();
-    expect(messageDiv).toBeFalsy();
 
     component.humanItemType = GameItemType.PAPER;
     component.computerItemType = GameItemType.PAPER;
@@ -101,13 +93,13 @@ describe('GameItemsPlayedComponent', () => {
 
 });
 
-  @Component({
-    template: '<app-game-items-played [computerItemType]="computerItemType" [humanItemType]="humanItemType" [goreEnabled]="goreEnabled" [humanResult]="humanResult" ></app-game-items-played>'
-  })
-  class TestGameItemsPlayedComponent {
+@Component({
+  template: '<app-game-items-played [computerItemType]="computerItemType" [humanItemType]="humanItemType" [goreEnabled]="goreEnabled" [humanResult]="humanResult" ></app-game-items-played>'
+})
+class TestGameItemsPlayedComponent {
 
-    computerItemType: GameItemType;
-    humanItemType: GameItemType;
-    goreEnabled: boolean;
-    humanResult: GameResult;
-  }
+  computerItemType: GameItemType;
+  humanItemType: GameItemType;
+  goreEnabled: boolean;
+  humanResult: GameResult;
+}

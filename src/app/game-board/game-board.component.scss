@@ -1,6 +1,8 @@
 .game-board {
+  height: 100%;
+
   .title {
-    font-size: 1.25em;
+    font-size: 1.5vw;
     word-spacing: 5px;
     background: -webkit-linear-gradient(red, blue);
     background-clip: text;
@@ -11,16 +13,16 @@
 
   @keyframes movefromwelcome {
     from {
-      font-size: 4em;
-      word-spacing: 25px;
+      font-size: 4vw;
+      word-spacing: 0.5vw;
       display: flex;
       justify-content: center;
       align-items: flex-end;
       flex-direction: row;
     }
     to {
-      font-size: 1.25em;
-      word-spacing: 5px;
+      font-size: 1.5vw;
+      word-spacing: 0.5vw;
     }
   }
 
@@ -29,7 +31,7 @@
     flex-direction: row;
 
     .button {
-      font-size: 60%;
+      font-size: 1.25vmin;
       margin-left: 20px;
     }
   }
@@ -39,8 +41,8 @@
   }
 
   .player-options {
+    height: 20vmin;
     margin: auto;
-    width: fit-content;
   }
 }
 

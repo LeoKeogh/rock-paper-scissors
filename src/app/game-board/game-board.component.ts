@@ -47,6 +47,8 @@ export class GameBoardComponent implements OnInit {
     })
 
     this.goreEnabled = localStorage.getItem("goreEnabled") === "true";
+
+
   }
 
   onNewGameClick() {
@@ -70,6 +72,6 @@ export class GameBoardComponent implements OnInit {
       this.humanResult = this.gameService.determineResultAndRefreshScores(this.human, this.computer);
 
       this.playerService.updatePlayer(_omit(this.human, "currentScore", "playedItem")).subscribe();
-    }, 50)
+    }, 10)
   }
 }
