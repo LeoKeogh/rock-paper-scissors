@@ -17,14 +17,14 @@ A REST backend is mocked by an InMemoryDbService (InLocalStorageDataService) whi
 ## Preview
 
 ### Welcome page
-![Welcome screen](src/assets/previews/welcome.jpg)
+<kbd>![Welcome screen](src/assets/previews/welcome.jpg)</kbd>
 
 ### Game board page (with Hall of Fame)
-![Game board screen](src/assets/previews/game-board.jpg)
+<kbd>![Game board screen](src/assets/previews/game-board.jpg)</kbd>
 
-after play:
+after user choice:
 
-![Game board with rock screen](src/assets/previews/game-board-rock-play.jpg)
+<kbd>![Game board with rock screen](src/assets/previews/game-board-rock-play.jpg)</kbd>
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.0.
