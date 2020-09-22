@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTableModule } from '@angular/material/table';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Player, PlayerType } from '../game.model';
-import { HallOfFameComponent } from './hall-of-fame.component';
-import _sortBy from 'lodash/sortBy';
+import { Component } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatTableModule } from "@angular/material/table";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Player, PlayerType } from "../game.model";
+import { HallOfFameComponent } from "./hall-of-fame.component";
+import _sortBy from "lodash/sortBy";
 
-
-describe('HallOfFameComponent', () => {
+describe("HallOfFameComponent", () => {
   let component: TestHallOfFameComponent;
   let fixture: ComponentFixture<TestHallOfFameComponent>;
 
@@ -28,8 +27,8 @@ describe('HallOfFameComponent', () => {
         won: 1,
         draw: 2,
         lost: 3,
-        winRatio: 25
-      }
+        winRatio: 25,
+      },
     },
     {
       name: "kenny",
@@ -38,8 +37,8 @@ describe('HallOfFameComponent', () => {
         won: 0,
         draw: 0,
         lost: 0,
-        winRatio: 0
-      }
+        winRatio: 0,
+      },
     },
     {
       name: "butthead",
@@ -48,18 +47,21 @@ describe('HallOfFameComponent', () => {
         won: 1,
         draw: 0,
         lost: 0,
-        winRatio: 100
-      }
-    }
-  ]
+        winRatio: 100,
+      },
+    },
+  ];
   const rankedPlayers = _sortBy(players, "totalScore.winRatio").reverse();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HallOfFameComponent, TestHallOfFameComponent],
-      imports: [MatProgressSpinnerModule, BrowserAnimationsModule, MatTableModule],
-    })
-      .compileComponents();
+      imports: [
+        MatProgressSpinnerModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -67,67 +69,88 @@ describe('HallOfFameComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    titleDiv = fixture.nativeElement.getElementsByClassName('hall-of-fame-title')[0]
+    titleDiv = fixture.nativeElement.getElementsByClassName(
+      "hall-of-fame-title"
+    )[0];
   });
 
-  it('should display spinner when players not defined', (done) => {
+  it("should display spinner when players not defined", (done) => {
     expect(component).toBeTruthy();
-    expect(titleDiv.textContent).toEqual("Hall Of Fame")
+    expect(titleDiv.textContent.trim().startsWith("Hall Of Fame")).toBeTrue();
 
     component.players = undefined;
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      matSpinner = fixture.nativeElement.querySelector('mat-spinner')
+      matSpinner = fixture.nativeElement.querySelector("mat-spinner");
       expect(matSpinner).toBeTruthy();
 
-      done()
-    })
-  })
+      done();
+    });
+  });
 
-  it('should display hall of fame with players sorted by total win ratio', (done) => {
+  it("should display hall of fame with players sorted by total win ratio", (done) => {
     expect(component).toBeTruthy();
-    expect(titleDiv.textContent).toEqual("Hall Of Fame")
+    expect(titleDiv.textContent.trim().startsWith("Hall Of Fame")).toBeTrue();
 
     component.players = players;
-    component.playerName = 'kenny';
+    component.playerName = "kenny";
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      matSpinner = fixture.nativeElement.querySelector('mat-spinner')
+      matSpinner = fixture.nativeElement.querySelector("mat-spinner");
       expect(matSpinner).toBeFalsy();
 
-      matTableHeaders = fixture.nativeElement.querySelector('thead').querySelectorAll('th');
+      matTableHeaders = fixture.nativeElement
+        .querySelector("thead")
+        .querySelectorAll("th");
       matTableHeaders.forEach((th, index) => {
-        expect(th.textContent).toEqual(expectedHeaders[index])
-      })
+        expect(th.textContent).toEqual(expectedHeaders[index]);
+      });
 
-      matTableRows = fixture.nativeElement.querySelector('tbody').querySelectorAll('tr');
+      matTableRows = fixture.nativeElement
+        .querySelector("tbody")
+        .querySelectorAll("tr");
       matTableRows.forEach((row, index) => {
         expect(row.children[0].textContent.trim()).toEqual(`${index + 1}`);
-        expect(row.children[1].textContent.trim()).toEqual(`${rankedPlayers[index].name}`);
-        expect(row.children[2].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.won + rankedPlayers[index].totalScore.draw + rankedPlayers[index].totalScore.lost}`);
-        expect(row.children[3].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.won}`);
-        expect(row.children[4].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.draw}`);
-        expect(row.children[5].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.lost}`);
-        expect(row.children[6].textContent.trim()).toEqual(`${rankedPlayers[index].totalScore.winRatio}%`);
+        expect(row.children[1].textContent.trim()).toEqual(
+          `${rankedPlayers[index].name}`
+        );
+        expect(row.children[2].textContent.trim()).toEqual(
+          `${
+            rankedPlayers[index].totalScore.won +
+            rankedPlayers[index].totalScore.draw +
+            rankedPlayers[index].totalScore.lost
+          }`
+        );
+        expect(row.children[3].textContent.trim()).toEqual(
+          `${rankedPlayers[index].totalScore.won}`
+        );
+        expect(row.children[4].textContent.trim()).toEqual(
+          `${rankedPlayers[index].totalScore.draw}`
+        );
+        expect(row.children[5].textContent.trim()).toEqual(
+          `${rankedPlayers[index].totalScore.lost}`
+        );
+        expect(row.children[6].textContent.trim()).toEqual(
+          `${rankedPlayers[index].totalScore.winRatio}%`
+        );
 
         if (rankedPlayers[index].name == component.playerName) {
-          expect(row.classList.contains('current-player')).toBeTrue();
+          expect(row.classList.contains("current-player")).toBeTrue();
         }
-      })
+      });
 
-      done()
-    })
-
-  })
+      done();
+    });
+  });
 });
 
 @Component({
-  template: '<app-hall-of-fame [players]="players" [playerName]="playerName"></app-hall-of-fame>'
+  template:
+    '<app-hall-of-fame [players]="players" [playerName]="playerName"></app-hall-of-fame>',
 })
 class TestHallOfFameComponent {
   players?: Player[];
   playerName: string;
 }
-

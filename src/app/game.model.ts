@@ -1,14 +1,16 @@
+// To make it more object orientated and to avoid using cloneDeep(), tried using a class with constructor() and refreshScore() methods
+// but encountered issues calling the HTTP POST (InMemoryDbService) :(
 export interface Player {
-  type: PlayerType,
-  name: string,
-  playedItem?: GameItemType,
-  currentScore?: Score,
-  totalScore?: Score
+  type: PlayerType;
+  name: string;
+  playedItem?: GameItemType;
+  currentScore?: Score;
+  totalScore?: Score;
 }
 
 export enum PlayerType {
   HUMAN = "human",
-  COMPUTER = "computer"
+  COMPUTER = "computer",
 }
 
 export const NewPlayer: Player = {
@@ -18,33 +20,32 @@ export const NewPlayer: Player = {
     won: 0,
     draw: 0,
     lost: 0,
-    winRatio: 0
+    winRatio: 0,
   },
   totalScore: {
     won: 0,
     draw: 0,
     lost: 0,
-    winRatio: 0
-  }
-}
+    winRatio: 0,
+  },
+};
 
 export interface Score {
-  won: number,
-  draw: number,
-  lost: number,
-  winRatio: number
+  won: number;
+  draw: number;
+  lost: number;
+  winRatio: number;
 }
-
 
 export enum GameItemType {
   ROCK = "rock",
   PAPER = "paper",
-  SCISSORS = "scissors"
+  SCISSORS = "scissors",
 }
 
 export enum GameItemOrientation {
   UP = "up",
-  DOWN = "down"
+  DOWN = "down",
 }
 
 export enum GameResult {

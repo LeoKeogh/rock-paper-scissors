@@ -9,6 +9,12 @@
     font-size: 3vmin;
     width: fit-content;
     margin: auto;
+
+    .button {
+      display: inline-flex;
+      flex-direction: row;
+      font-size: 1.25vmin;
+    }
   }
 
   mat-spinner {
@@ -48,7 +54,6 @@
   }
 }
 
-  .name-tooltip {
-    font-family: 'Arcade Classic' !important;
-  }
-  
+.name-tooltip {
+  font-family: "Arcade Classic" !important;
+}

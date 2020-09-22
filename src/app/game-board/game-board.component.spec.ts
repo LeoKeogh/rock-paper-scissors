@@ -1,36 +1,47 @@
-import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTableModule } from '@angular/material/table';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { AppRoutingModule } from '../app-routing.module';
-import { GameItemComponent } from '../game-item/game-item.component';
-import { GameItemsPlayedComponent } from '../game-items-played/game-items-played.component';
-import { GameItemsComponent } from '../game-items/game-items.component';
-import { GameItemType, Player, PlayerType } from '../game.model';
-import { GameService } from '../game.service';
-import { HallOfFameComponent } from '../hall-of-fame/hall-of-fame.component';
-import { PlayerScoreComponent } from '../player-score/player-score.component';
-import { PlayerService } from '../player.service';
+import { HttpClientModule } from "@angular/common/http";
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from "@angular/core/testing";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatTableModule } from "@angular/material/table";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ActivatedRoute, Router } from "@angular/router";
+import { of } from "rxjs";
+import { AppRoutingModule } from "../app-routing.module";
+import { GameItemComponent } from "../game-item/game-item.component";
+import { GameItemsPlayedComponent } from "../game-items-played/game-items-played.component";
+import { GameItemsComponent } from "../game-items/game-items.component";
+import { GameItemType, Player, PlayerType } from "../game.model";
+import { GameService } from "../game.service";
+import { HallOfFameComponent } from "../hall-of-fame/hall-of-fame.component";
+import { PlayerScoreComponent } from "../player-score/player-score.component";
+import { PlayerService } from "../player.service";
 
-import { GameBoardComponent } from './game-board.component';
+import { GameBoardComponent } from "./game-board.component";
 
-describe('GameBoardComponent', () => {
+describe("GameBoardComponent", () => {
   let component: GameBoardComponent;
   let fixture: ComponentFixture<GameBoardComponent>;
 
-  const activatedRouteSpy: jasmine.SpyObj<ActivatedRoute> = jasmine.createSpyObj('activatedRoute', ['snapshot'])
+  const activatedRouteSpy: jasmine.SpyObj<ActivatedRoute> = jasmine.createSpyObj(
+    "activatedRoute",
+    ["snapshot"]
+  );
   activatedRouteSpy.snapshot.queryParams = [];
-  const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj('router', ['navigate'])
-  const playerServiceSpy: jasmine.SpyObj<PlayerService> = jasmine.createSpyObj('playerService', ['getPlayer', 'getPlayers', 'updatePlayer'])
-  playerServiceSpy.getPlayer.and.returnValue(of(undefined))
-  playerServiceSpy.getPlayers.and.returnValue(of(undefined))
-  playerServiceSpy.updatePlayer.and.returnValue(of(undefined))
-
+  const routerSpy: jasmine.SpyObj<Router> = jasmine.createSpyObj("router", [
+    "navigate",
+  ]);
+  const playerServiceSpy: jasmine.SpyObj<PlayerService> = jasmine.createSpyObj(
+    "playerService",
+    ["getPlayer", "getPlayers", "updatePlayer"]
+  );
+  playerServiceSpy.getPlayer.and.returnValue(of(undefined));
+  playerServiceSpy.getPlayers.and.returnValue(of(undefined));
+  playerServiceSpy.updatePlayer.and.returnValue(of(undefined));
 
   let appPlayerScoreComputer: HTMLElement;
   let appGameItemsPlayed: HTMLElement;
@@ -41,7 +52,7 @@ describe('GameBoardComponent', () => {
   let newGameButton: HTMLDivElement;
   let enableGoreButton: HTMLDivElement;
 
-  const gameService = new GameService()
+  const gameService = new GameService();
 
   const players: Player[] = [
     {
@@ -51,8 +62,8 @@ describe('GameBoardComponent', () => {
         won: 1,
         draw: 2,
         lost: 3,
-        winRatio: 25
-      }
+        winRatio: 25,
+      },
     },
     {
       name: "kenny",
@@ -61,8 +72,8 @@ describe('GameBoardComponent', () => {
         won: 0,
         draw: 0,
         lost: 0,
-        winRatio: 0
-      }
+        winRatio: 0,
+      },
     },
     {
       name: "butthead",
@@ -71,24 +82,38 @@ describe('GameBoardComponent', () => {
         won: 1,
         draw: 0,
         lost: 0,
-        winRatio: 100
-      }
-    }
-  ]
+        winRatio: 100,
+      },
+    },
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameBoardComponent, PlayerScoreComponent, GameItemsPlayedComponent, GameItemsComponent, GameItemComponent, HallOfFameComponent ],
-      imports: [BrowserModule, HttpClientModule, AppRoutingModule, MatTooltipModule, MatProgressSpinnerModule, BrowserAnimationsModule, MatTableModule],
+      declarations: [
+        GameBoardComponent,
+        PlayerScoreComponent,
+        GameItemsPlayedComponent,
+        GameItemsComponent,
+        GameItemComponent,
+        HallOfFameComponent,
+      ],
+      imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+      ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: PlayerService, useValue: playerServiceSpy },
         { provide: ActivatedRoute, useValue: activatedRouteSpy },
         { provide: Router, useValue: routerSpy },
         { provide: GameService, useValue: gameService },
-      ]
-    })
-    .compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -97,50 +122,62 @@ describe('GameBoardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to /welcome when playerName not in URL', () => {
+  it("should navigate to /welcome when playerName not in URL", () => {
     expect(component).toBeTruthy();
 
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/welcome'])
-  })
+    expect(routerSpy.navigate).toHaveBeenCalledWith(["/welcome"]);
+  });
 
-  it('should navigate to /welcome when player does not exist', () => {
+  it("should navigate to /welcome when player does not exist", () => {
     expect(component).toBeTruthy();
 
     activatedRouteSpy.snapshot.queryParams["playerName"] = "kenny";
-    component.ngOnInit()
+    component.ngOnInit();
 
-    expect(playerServiceSpy.getPlayer).toHaveBeenCalledWith("kenny")
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/welcome'])
-  })
+    expect(playerServiceSpy.getPlayer).toHaveBeenCalledWith("kenny");
+    expect(routerSpy.navigate).toHaveBeenCalledWith(["/welcome"]);
+  });
 
-  it('should init game board when player exists', (done) => {
+  it("should init game board when player exists", (done) => {
     expect(component).toBeTruthy();
     activatedRouteSpy.snapshot.queryParams["playerName"] = "kenny";
-    playerServiceSpy.getPlayer.and.returnValue(of(players.filter(p => p.name === "kenny")[0]))
-    playerServiceSpy.getPlayers.and.returnValue(of(players))
-    component.ngOnInit()
+    playerServiceSpy.getPlayer.and.returnValue(
+      of(players.filter((p) => p.name === "kenny")[0])
+    );
+    playerServiceSpy.getPlayers.and.returnValue(of(players));
+    component.ngOnInit();
 
     component.goreEnabled = true;
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      newGameButton = fixture.nativeElement.getElementsByClassName("new-game-button")[0];
+      newGameButton = fixture.nativeElement.getElementsByClassName(
+        "new-game-button"
+      )[0];
       expect(newGameButton).toBeTruthy();
       expect(newGameButton.textContent.trim()).toEqual("New Game");
 
-      enableGoreButton = fixture.nativeElement.getElementsByClassName("enable-gore-button")[0];
+      enableGoreButton = fixture.nativeElement.getElementsByClassName(
+        "enable-gore-button"
+      )[0];
       expect(enableGoreButton).toBeTruthy();
       expect(enableGoreButton.textContent.trim()).toEqual("Disable Gore");
 
-      appPlayerScoreComputer = fixture.nativeElement.querySelector('app-player-score');
-      appGameItemsPlayed = fixture.nativeElement.querySelector('app-game-items-played');
-      appGameItems = fixture.nativeElement.querySelector('app-game-items');
-      appPlayerScoreHuman = fixture.nativeElement.querySelectorAll('app-player-score')[1]
-      appHallOfFame = fixture.nativeElement.querySelector('app-hall-of-fame');
+      appPlayerScoreComputer = fixture.nativeElement.querySelector(
+        "app-player-score"
+      );
+      appGameItemsPlayed = fixture.nativeElement.querySelector(
+        "app-game-items-played"
+      );
+      appGameItems = fixture.nativeElement.querySelector("app-game-items");
+      appPlayerScoreHuman = fixture.nativeElement.querySelectorAll(
+        "app-player-score"
+      )[1];
+      appHallOfFame = fixture.nativeElement.querySelector("app-hall-of-fame");
 
       expect(appPlayerScoreComputer).toBeTruthy();
       expect(appGameItemsPlayed).toBeTruthy();
@@ -149,6 +186,6 @@ describe('GameBoardComponent', () => {
       expect(appHallOfFame).toBeTruthy();
 
       done();
-    })
-  })
+    });
+  });
 });

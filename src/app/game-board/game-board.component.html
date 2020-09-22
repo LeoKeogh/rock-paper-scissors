@@ -1,7 +1,9 @@
 <div class="game-board">
   <span class="title">Rock Paper Scissors</span>
   <div class="buttons">
-    <div class="new-game-button button" (click)="onNewGameClick()">New Game</div>
+    <div class="new-game-button button" (click)="onNewGameClick()">
+      New Game
+    </div>
     <div class="enable-gore-button button" (click)="onGoreSwitchClick()">
       {{ goreEnabled ? "Disable Gore" : "Enable Gore" }}
     </div>
@@ -23,7 +25,7 @@
   </div>
 
   <app-hall-of-fame
-    [players]="humanPlayers"
+    [players]="hallOfFamePlayers"
     [playerName]="human?.name"
   ></app-hall-of-fame>
 </div>

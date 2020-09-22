@@ -2,13 +2,14 @@
 <div class="input-container">
   <mat-form-field appearance="outline">
     <mat-label>Player name</mat-label>
-    <input
-      matInput
-      [(ngModel)]="playerName"
-      (keyup.enter)="onSubmit()"
-    />
+    <input matInput [(ngModel)]="playerName" (keyup.enter)="onSubmit()" />
   </mat-form-field>
-  <div class="button" [attr.data-disabled]="!playerName" (click)="onSubmit()" [matTooltip]="!playerName ? 'Please enter a player name' : ''">
+  <div
+    class="button"
+    [attr.data-disabled]="!playerName"
+    (click)="onSubmit()"
+    [matTooltip]="!playerName ? 'Please enter a player name' : ''"
+  >
     Start
   </div>
 </div>

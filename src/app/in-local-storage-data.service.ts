@@ -7,7 +7,7 @@ import { Player } from './game.model';
   providedIn: 'root'
 })
 export class InLocalStorageDataService implements InMemoryDbService {
-  localStorageDbKey = "playerDb"
+  localStorageDbKey = "rps-playerDb"
 
   players: Player[]
 
