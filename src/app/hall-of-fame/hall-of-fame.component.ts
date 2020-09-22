@@ -7,7 +7,7 @@ import _sortBy from "lodash/sortBy";
   templateUrl: "./hall-of-fame.component.html",
   styleUrls: ["./hall-of-fame.component.scss"],
 })
-export class HallOfFameComponent implements DoCheck {
+export class HallOfFameComponent implements DoCheck, OnInit {
 
   @Input() players?: Player[];
   @Input() playerName: string;
@@ -27,8 +27,8 @@ export class HallOfFameComponent implements DoCheck {
   visible: boolean = true;
   visibleStorageKey = "rps-hall-of-fame-visible";
 
-  ngInit(): void {
-    this.visible = localStorage.getItem(this.visibleStorageKey) === "true";
+  ngOnInit(): void {
+    this.visible = localStorage.getItem(this.visibleStorageKey) !== "false";
   }
 
   ngDoCheck(): void {

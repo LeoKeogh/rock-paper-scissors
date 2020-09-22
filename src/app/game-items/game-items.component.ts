@@ -6,14 +6,12 @@ import { GameItemType } from "../game.model";
   templateUrl: "./game-items.component.html",
   styleUrls: ["./game-items.component.scss"],
 })
-export class GameItemsComponent implements OnInit {
+export class GameItemsComponent {
   @Output() onClick?: EventEmitter<any> = new EventEmitter();
 
   GameItemType = GameItemType;
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   onGameItemClick(itemType: GameItemType) {
     this.onClick && this.onClick.emit(itemType);

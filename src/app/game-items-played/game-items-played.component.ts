@@ -7,7 +7,7 @@ import _delay from "lodash/delay";
   templateUrl: "./game-items-played.component.html",
   styleUrls: ["./game-items-played.component.scss"],
 })
-export class GameItemsPlayedComponent implements OnInit, OnChanges {
+export class GameItemsPlayedComponent implements OnChanges {
   @Input() humanItemType?: GameItemType;
   @Input() computerItemType?: GameItemType;
 
@@ -18,8 +18,6 @@ export class GameItemsPlayedComponent implements OnInit, OnChanges {
   GameItemOrientation = GameItemOrientation;
 
   resultMessage?: string;
-
-  ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.resultMessage = undefined;
