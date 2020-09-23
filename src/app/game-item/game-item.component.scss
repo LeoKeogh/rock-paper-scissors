@@ -15,7 +15,9 @@
     -webkit-user-drag: none;
 
     &[data-played="false"] {
-      padding-left: 50px;
+      height: 20vmin;
+      padding-left: 25px;
+      padding-right: 25px;
 
       &:hover {
         cursor: pointer;

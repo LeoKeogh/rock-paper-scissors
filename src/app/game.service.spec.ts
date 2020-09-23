@@ -1,51 +1,29 @@
 import { TestBed } from "@angular/core/testing";
-import _cloneDeep from "lodash/cloneDeep";
 import {
   GameItemType,
   GameResult,
-  NewPlayer,
   Player,
+  PlayerImpl,
   PlayerType,
+  ScoreImpl
 } from "./game.model";
 import { GameService } from "./game.service";
 
 describe("GameService", () => {
   let service: GameService;
 
-  const humanInit: Player = {
-    ..._cloneDeep(NewPlayer),
-    name: "Beavis",
-    currentScore: {
-      won: 1,
-      draw: 0,
-      lost: 2,
-      winRatio: 33,
-    },
-    totalScore: {
-      won: 1,
-      draw: 0,
-      lost: 3,
-      winRatio: 25,
-    },
-  };
-
-  const computerInit: Player = {
-    ..._cloneDeep(NewPlayer),
-    name: "HAL",
-    type: PlayerType.COMPUTER,
-    currentScore: {
-      won: 2,
-      draw: 0,
-      lost: 1,
-      winRatio: 67,
-    },
-    totalScore: {
-      won: 3,
-      draw: 0,
-      lost: 1,
-      winRatio: 75,
-    },
-  };
+  const humanInit = new PlayerImpl(
+    "beavis",
+    PlayerType.HUMAN,
+    /*currentScore*/ new ScoreImpl(1, 0, 2, 33),
+    /*totalScore*/ new ScoreImpl(1, 0, 3, 25)
+  );
+  const computerInit = new PlayerImpl(
+    "HAL",
+    PlayerType.COMPUTER,
+    /*currentScore*/ new ScoreImpl(2, 0, 1, 67),
+    /*totalScore*/ new ScoreImpl(3, 0, 1, 75)
+  );
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -56,124 +34,76 @@ describe("GameService", () => {
     expect(service).toBeTruthy();
   });
 
-  const expectHumanWon = (human) => {
-    expect(human).toEqual({
-      ..._cloneDeep(humanInit),
-      playedItem: human.playedItem,
-      currentScore: {
-        won: 2,
-        draw: 0,
-        lost: 2,
-        winRatio: 50,
-      },
-      totalScore: {
-        won: 2,
-        draw: 0,
-        lost: 3,
-        winRatio: 40,
-      },
-    });
+  const expectHumanWon = (human: Player) => {
+    let expectedHuman = PlayerImpl.from(humanInit);
+    expectedHuman.currentScore.won++;
+    expectedHuman.currentScore.winRatio = 50;
+    expectedHuman.totalScore.won++;
+    expectedHuman.totalScore.winRatio = 40;
+
+    expect(human.currentScore).toEqual(expectedHuman.currentScore);
+    expect(human.totalScore).toEqual(expectedHuman.totalScore);
   };
 
-  const expectHumanDraw = (human) => {
-    expect(human).toEqual({
-      ..._cloneDeep(humanInit),
-      playedItem: human.playedItem,
-      currentScore: {
-        won: 1,
-        draw: 1,
-        lost: 2,
-        winRatio: 33,
-      },
-      totalScore: {
-        won: 1,
-        draw: 1,
-        lost: 3,
-        winRatio: 25,
-      },
-    });
+  const expectHumanDraw = (human: Player) => {
+    let expectedHuman = PlayerImpl.from(humanInit);
+    expectedHuman.currentScore.draw++;
+    expectedHuman.currentScore.winRatio = 33;
+    expectedHuman.totalScore.draw++;
+    expectedHuman.totalScore.winRatio = 25;
+
+    expect(human.currentScore).toEqual(expectedHuman.currentScore);
+    expect(human.totalScore).toEqual(expectedHuman.totalScore);
   };
 
-  const expectHumanLost = (human) => {
-    expect(human).toEqual({
-      ..._cloneDeep(humanInit),
-      playedItem: human.playedItem,
-      currentScore: {
-        won: 1,
-        draw: 0,
-        lost: 3,
-        winRatio: 25,
-      },
-      totalScore: {
-        won: 1,
-        draw: 0,
-        lost: 4,
-        winRatio: 20,
-      },
-    });
+  const expectHumanLost = (human: Player) => {
+    let expectedHuman = PlayerImpl.from(humanInit);
+    expectedHuman.currentScore.lost++;
+    expectedHuman.currentScore.winRatio = 25;
+    expectedHuman.totalScore.lost++;
+    expectedHuman.totalScore.winRatio = 20;
+
+    expect(human.currentScore).toEqual(expectedHuman.currentScore);
+    expect(human.totalScore).toEqual(expectedHuman.totalScore);
   };
 
-  const expectComputerWon = (computer) => {
-    expect(computer).toEqual({
-      ..._cloneDeep(computerInit),
-      playedItem: computer.playedItem,
-      currentScore: {
-        won: 3,
-        draw: 0,
-        lost: 1,
-        winRatio: 75,
-      },
-      totalScore: {
-        won: 4,
-        draw: 0,
-        lost: 1,
-        winRatio: 80,
-      },
-    });
+  const expectComputerWon = (computer: Player) => {
+    let expectedComputer = PlayerImpl.from(computerInit);
+    expectedComputer.currentScore.won++;
+    expectedComputer.currentScore.winRatio = 75;
+    expectedComputer.totalScore.won++;
+    expectedComputer.totalScore.winRatio = 80;
+
+    expect(computer.currentScore).toEqual(expectedComputer.currentScore);
+    expect(computer.totalScore).toEqual(expectedComputer.totalScore);
   };
 
-  const expectComputerDraw = (computer) => {
-    expect(computer).toEqual({
-      ..._cloneDeep(computerInit),
-      playedItem: computer.playedItem,
-      currentScore: {
-        won: 2,
-        draw: 1,
-        lost: 1,
-        winRatio: 67,
-      },
-      totalScore: {
-        won: 3,
-        draw: 1,
-        lost: 1,
-        winRatio: 75,
-      },
-    });
+  const expectComputerDraw = (computer: Player) => {
+    let expectedComputer = PlayerImpl.from(computerInit);
+    expectedComputer.currentScore.draw++;
+    expectedComputer.currentScore.winRatio = 67;
+    expectedComputer.totalScore.draw++;
+    expectedComputer.totalScore.winRatio = 75;
+
+    expect(computer.currentScore).toEqual(expectedComputer.currentScore);
+    expect(computer.totalScore).toEqual(expectedComputer.totalScore);
   };
 
-  const expectComputerLost = (computer) => {
-    expect(computer).toEqual({
-      ..._cloneDeep(computerInit),
-      playedItem: computer.playedItem,
-      currentScore: {
-        won: 2,
-        draw: 0,
-        lost: 2,
-        winRatio: 50,
-      },
-      totalScore: {
-        won: 3,
-        draw: 0,
-        lost: 2,
-        winRatio: 60,
-      },
-    });
+  const expectComputerLost = (computer: Player) => {
+    let expectedComputer = PlayerImpl.from(computerInit);
+    expectedComputer.currentScore.lost++;
+    expectedComputer.currentScore.winRatio = 50;
+    expectedComputer.totalScore.lost++;
+    expectedComputer.totalScore.winRatio = 60;
+
+    expect(computer.currentScore).toEqual(expectedComputer.currentScore);
+    expect(computer.totalScore).toEqual(expectedComputer.totalScore);
   };
 
   it("should determine that human has won with paper vs rock and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.PAPER;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.ROCK;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -187,9 +117,9 @@ describe("GameService", () => {
   });
 
   it("should determine that human has won with scissors vs paper and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.SCISSORS;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.PAPER;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -203,9 +133,9 @@ describe("GameService", () => {
   });
 
   it("should determine that human has won with rock vs scissors and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.ROCK;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.SCISSORS;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -219,9 +149,9 @@ describe("GameService", () => {
   });
 
   it("should determine that human has lost with paper vs scissors and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.PAPER;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.SCISSORS;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -235,9 +165,9 @@ describe("GameService", () => {
   });
 
   it("should determine that human has lost with scissors vs rock and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.SCISSORS;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.ROCK;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -251,9 +181,9 @@ describe("GameService", () => {
   });
 
   it("should determine that human has lost with rock vs paper and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.ROCK;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.PAPER;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -267,9 +197,9 @@ describe("GameService", () => {
   });
 
   it("should determine a draw with rocks and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.ROCK;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.ROCK;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -283,9 +213,9 @@ describe("GameService", () => {
   });
 
   it("should determine a draw with papers and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.PAPER;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.PAPER;
 
     const humanResult = service.determineResultAndRefreshScores(
@@ -299,9 +229,9 @@ describe("GameService", () => {
   });
 
   it("should determine a draw with scissors and update scores accordingly", () => {
-    const human: Player = _cloneDeep(humanInit);
+    const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.SCISSORS;
-    const computer: Player = _cloneDeep(computerInit);
+    const computer = PlayerImpl.from(computerInit);
     computer.playedItem = GameItemType.SCISSORS;
 
     const humanResult = service.determineResultAndRefreshScores(

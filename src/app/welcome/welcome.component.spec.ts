@@ -2,7 +2,7 @@ import { HttpClientModule } from "@angular/common/http";
 import {
   ComponentFixture,
   ComponentFixtureAutoDetect,
-  TestBed,
+  TestBed
 } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -11,9 +11,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { Router } from "@angular/router";
 import { of } from "rxjs/internal/observable/of";
 import { AppRoutingModule } from "../app-routing.module";
-import { Player, PlayerType } from "../game.model";
+import { PlayerImpl, PlayerType, ScoreImpl } from "../game.model";
 import { PlayerService } from "../player.service";
-
 import { WelcomeComponent } from "./welcome.component";
 
 describe("WelcomeComponent", () => {
@@ -60,21 +59,18 @@ describe("WelcomeComponent", () => {
     startButton = fixture.nativeElement.getElementsByClassName("button")[0];
   });
 
-  const existingPlayer: Player = {
-    name: "beavis",
-    type: PlayerType.HUMAN,
-    totalScore: {
-      won: 0,
-      draw: 0,
-      lost: 0,
-      winRatio: 0,
-    },
-  };
-
-  const expectedNewPlayer: Player = {
-    ...existingPlayer,
-    name: "butthead",
-  };
+  const existingPlayer = new PlayerImpl(
+    "beavis",
+    PlayerType.HUMAN,
+    /*currentScore*/ new ScoreImpl(),
+    /*totalScore*/ new ScoreImpl(1, 0, 3, 25)
+  );
+  const expectedNewPlayer = new PlayerImpl(
+    "butthead",
+    PlayerType.HUMAN,
+    /*currentScore*/ new ScoreImpl(),
+    /*totalScore*/ new ScoreImpl()
+  );
 
   const expectInputToHaveValue = (value: string, buttonDisabled: boolean) => {
     expect(nameInput.value).toEqual(value);

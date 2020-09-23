@@ -1,8 +1,7 @@
 import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { ComponentFixtureAutoDetect, TestBed } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing";
 import { of } from "rxjs";
-import { Player, PlayerType } from "./game.model";
-
+import { Player, PlayerImpl, PlayerType, ScoreImpl } from "./game.model";
 import { PlayerService } from "./player.service";
 
 describe("PlayerService", () => {
@@ -14,26 +13,18 @@ describe("PlayerService", () => {
   );
 
   const players: Player[] = [
-    {
-      name: "beavis",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 10,
-        draw: 20,
-        lost: 30,
-        winRatio: 10,
-      },
-    },
-    {
-      name: "butthead",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 0,
-        draw: 0,
-        lost: 0,
-        winRatio: 0,
-      },
-    },
+    new PlayerImpl(
+      "beavis",
+      PlayerType.HUMAN,
+      /*currentScore*/ new ScoreImpl(),
+      /*totalScore*/ new ScoreImpl(10, 20, 30, 10)
+    ),
+    new PlayerImpl(
+      "butthead",
+      PlayerType.HUMAN,
+      /*currentScore*/ new ScoreImpl(),
+      /*totalScore*/ new ScoreImpl()
+    ),
   ];
 
   beforeEach(() => {

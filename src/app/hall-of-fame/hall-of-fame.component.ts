@@ -1,6 +1,6 @@
-import { Component, DoCheck, Input, OnChanges, OnInit } from "@angular/core";
-import { Player } from "../game.model";
+import { Component, DoCheck, Input, OnInit } from "@angular/core";
 import _sortBy from "lodash/sortBy";
+import { PlayerImpl } from "../game.model";
 
 @Component({
   selector: "app-hall-of-fame[players][playerName]",
@@ -8,11 +8,10 @@ import _sortBy from "lodash/sortBy";
   styleUrls: ["./hall-of-fame.component.scss"],
 })
 export class HallOfFameComponent implements DoCheck, OnInit {
-
-  @Input() players?: Player[];
+  @Input() players?: PlayerImpl[];
   @Input() playerName: string;
 
-  rankedPlayers?: Player[];
+  rankedPlayers?: PlayerImpl[];
 
   displayedColumns: string[] = [
     "rank",

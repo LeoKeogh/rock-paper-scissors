@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import _round from "lodash/round";
-import { GameItemType, GameResult, Player, Score } from "./game.model";
+import { GameItemType, GameResult, Player } from "./game.model";
 
 @Injectable({
   providedIn: "root",
@@ -27,38 +26,10 @@ export class GameService {
       }
     }
 
-    this.refreshScores(human, humanResult);
-    this.refreshScores(computer, computerResult);
+    human.refreshScores(humanResult);
+    computer.refreshScores(computerResult);
 
     return humanResult;
-  }
-
-  private refreshScores(player: Player, result: GameResult): void {
-    switch (result) {
-      case GameResult.WIN:
-        player.currentScore.won++;
-        player.totalScore.won++;
-        break;
-      case GameResult.LOSE:
-        player.currentScore.lost++;
-        player.totalScore.lost++;
-        break;
-      case GameResult.DRAW:
-        player.currentScore.draw++;
-        player.totalScore.draw++;
-        break;
-    }
-
-    this.refreshWinRatio(player.currentScore);
-    this.refreshWinRatio(player.totalScore);
-  }
-
-  private refreshWinRatio(score: Score) {
-    const gamesWonOrLost = score.won + score.lost;
-    score.winRatio =
-      gamesWonOrLost > 0
-        ? _round((score.won / gamesWonOrLost) * 100)
-        : undefined;
   }
 
   getRandomItemType(): GameItemType {

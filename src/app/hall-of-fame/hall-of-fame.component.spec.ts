@@ -2,10 +2,11 @@ import { Component } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTableModule } from "@angular/material/table";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Player, PlayerType } from "../game.model";
-import { HallOfFameComponent } from "./hall-of-fame.component";
 import _sortBy from "lodash/sortBy";
+import { Player, PlayerImpl, PlayerType, ScoreImpl } from "../game.model";
+import { HallOfFameComponent } from "./hall-of-fame.component";
 
 describe("HallOfFameComponent", () => {
   let component: TestHallOfFameComponent;
@@ -20,36 +21,19 @@ describe("HallOfFameComponent", () => {
   const expectedHeaders = ["Rank", "Name", "P", "W", "D", "L", "W/L Ratio"];
 
   const players: Player[] = [
-    {
-      name: "beavis",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 1,
-        draw: 2,
-        lost: 3,
-        winRatio: 25,
-      },
-    },
-    {
-      name: "kenny",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 0,
-        draw: 0,
-        lost: 0,
-        winRatio: 0,
-      },
-    },
-    {
-      name: "butthead",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 1,
-        draw: 0,
-        lost: 0,
-        winRatio: 100,
-      },
-    },
+    new PlayerImpl(
+      "beavis",
+      PlayerType.HUMAN,
+      /*currentScore*/ new ScoreImpl(),
+      /*totalScore*/ new ScoreImpl(1, 2, 3, 25)
+    ),
+    new PlayerImpl("kenny"),
+    new PlayerImpl(
+      "butthead",
+      PlayerType.HUMAN,
+      /*currentScore*/ new ScoreImpl(),
+      /*totalScore*/ new ScoreImpl(1, 0, 0, 100)
+    ),
   ];
   const rankedPlayers = _sortBy(players, "totalScore.winRatio").reverse();
 
@@ -60,6 +44,7 @@ describe("HallOfFameComponent", () => {
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
         MatTableModule,
+        MatTooltipModule,
       ],
     }).compileComponents();
   }));
@@ -111,6 +96,7 @@ describe("HallOfFameComponent", () => {
       matTableRows = fixture.nativeElement
         .querySelector("tbody")
         .querySelectorAll("tr");
+
       matTableRows.forEach((row, index) => {
         expect(row.children[0].textContent.trim()).toEqual(`${index + 1}`);
         expect(row.children[1].textContent.trim()).toEqual(

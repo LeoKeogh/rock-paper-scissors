@@ -1,14 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import _cloneDeep from "lodash/cloneDeep";
 import _delay from "lodash/delay";
 import _omit from "lodash/omit";
 import {
   GameItemType,
   GameResult,
-  NewPlayer,
   Player,
-  PlayerType,
+  PlayerImpl,
+  PlayerType
 } from "../game.model";
 import { GameService } from "../game.service";
 import { PlayerService } from "../player.service";
@@ -27,11 +26,7 @@ export class GameBoardComponent implements OnInit {
   ) {}
 
   human?: Player;
-  computer: Player = {
-    ..._cloneDeep(NewPlayer),
-    name: "HAL",
-    type: PlayerType.COMPUTER,
-  };
+  computer: Player = new PlayerImpl("HAL", PlayerType.COMPUTER);
 
   humanResult?: GameResult;
 
@@ -45,8 +40,11 @@ export class GameBoardComponent implements OnInit {
     !playerName && this.router.navigate(["/welcome"]);
 
     this.playerService.getPlayer(playerName).subscribe((player) => {
-      !player && this.router.navigate(["/welcome"]);
-      this.human = { ..._cloneDeep(NewPlayer), ...player };
+      if (!player) {
+        this.router.navigate(["/welcome"]);
+      } else {
+        this.human = PlayerImpl.from(player);
+      }
     });
 
     this.playerService.getPlayers().subscribe((players) => {

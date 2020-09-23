@@ -2,7 +2,7 @@ import { HttpClientModule } from "@angular/common/http";
 import {
   ComponentFixture,
   ComponentFixtureAutoDetect,
-  TestBed,
+  TestBed
 } from "@angular/core/testing";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTableModule } from "@angular/material/table";
@@ -15,12 +15,11 @@ import { AppRoutingModule } from "../app-routing.module";
 import { GameItemComponent } from "../game-item/game-item.component";
 import { GameItemsPlayedComponent } from "../game-items-played/game-items-played.component";
 import { GameItemsComponent } from "../game-items/game-items.component";
-import { GameItemType, Player, PlayerType } from "../game.model";
+import { Player, PlayerImpl, PlayerType, ScoreImpl } from "../game.model";
 import { GameService } from "../game.service";
 import { HallOfFameComponent } from "../hall-of-fame/hall-of-fame.component";
 import { PlayerScoreComponent } from "../player-score/player-score.component";
 import { PlayerService } from "../player.service";
-
 import { GameBoardComponent } from "./game-board.component";
 
 describe("GameBoardComponent", () => {
@@ -55,36 +54,19 @@ describe("GameBoardComponent", () => {
   const gameService = new GameService();
 
   const players: Player[] = [
-    {
-      name: "beavis",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 1,
-        draw: 2,
-        lost: 3,
-        winRatio: 25,
-      },
-    },
-    {
-      name: "kenny",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 0,
-        draw: 0,
-        lost: 0,
-        winRatio: 0,
-      },
-    },
-    {
-      name: "butthead",
-      type: PlayerType.HUMAN,
-      totalScore: {
-        won: 1,
-        draw: 0,
-        lost: 0,
-        winRatio: 100,
-      },
-    },
+    new PlayerImpl(
+      "beavis",
+      PlayerType.HUMAN,
+      /*currentScore*/ new ScoreImpl(),
+      /*totalScore*/ new ScoreImpl(1, 2, 3, 25)
+    ),
+    new PlayerImpl("kenny"),
+    new PlayerImpl(
+      "butthead",
+      PlayerType.HUMAN,
+      /*currentScore*/ new ScoreImpl(),
+      /*totalScore*/ new ScoreImpl(1, 0, 0, 100)
+    ),
   ];
 
   beforeEach(async () => {

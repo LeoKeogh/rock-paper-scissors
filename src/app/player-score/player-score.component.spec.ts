@@ -1,15 +1,9 @@
 import { Component } from "@angular/core";
-import {
-  async,
-  ComponentFixture,
-  ComponentFixtureAutoDetect,
-  TestBed,
-} from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Player, PlayerType } from "../game.model";
-
+import { PlayerImpl, PlayerType, ScoreImpl } from "../game.model";
 import { PlayerScoreComponent } from "./player-score.component";
 
 describe("PlayerScoreComponent", () => {
@@ -20,39 +14,18 @@ describe("PlayerScoreComponent", () => {
   let spanName: HTMLSpanElement;
   let spanPoints: HTMLSpanElement;
 
-  const human = {
-    name: "beavis",
-    type: PlayerType.HUMAN,
-    currentScore: {
-      won: 1,
-      draw: 0,
-      lost: 2,
-      winRatio: 33,
-    },
-    totalScore: {
-      won: 1,
-      draw: 0,
-      lost: 3,
-      winRatio: 25,
-    },
-  };
-
-  const computer: Player = {
-    name: "HAL",
-    type: PlayerType.COMPUTER,
-    currentScore: {
-      won: 0,
-      draw: 1,
-      lost: 0,
-      winRatio: 0,
-    },
-    totalScore: {
-      won: 10,
-      draw: 1,
-      lost: 23,
-      winRatio: 21,
-    },
-  };
+  const human = new PlayerImpl(
+    "beavis",
+    PlayerType.HUMAN,
+    /*currentScore*/ new ScoreImpl(1, 0, 2, 33),
+    /*totalScore*/ new ScoreImpl(1, 0, 3, 25)
+  );
+  const computer = new PlayerImpl(
+    "HAL",
+    PlayerType.COMPUTER,
+    /*currentScore*/ new ScoreImpl(0, 1, 0, 0),
+    /*totalScore*/ new ScoreImpl(10, 1, 23, 21)
+  );
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -129,5 +102,5 @@ describe("PlayerScoreComponent", () => {
   template: '<app-player-score [player]="player"></app-player-score>',
 })
 class TestPlayerScoreComponent {
-  player?: Player;
+  player?: PlayerImpl;
 }

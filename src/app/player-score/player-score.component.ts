@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input } from "@angular/core";
-import { Player, PlayerType } from "../game.model";
+import { PlayerImpl, PlayerType } from "../game.model";
 
 @Component({
   selector: "app-player-score[player]",
@@ -7,7 +7,7 @@ import { Player, PlayerType } from "../game.model";
   styleUrls: ["./player-score.component.scss"],
 })
 export class PlayerScoreComponent implements DoCheck {
-  @Input() player?: Player;
+  @Input() player?: PlayerImpl;
 
   displayedPoints: string;
   displayedName: string;

@@ -7,7 +7,7 @@ Game designed and created by Leo Keogh.
 - Partial (CSS problems): Edge (latest, tested: 44.18362.449.0)
 
 ## Assets
-All images and fonts used are free and no attribution is required
+All images and fonts used are free with no attribution is required
 
 ## Backend
 The application does not have a separate backend for proper data persistence.
