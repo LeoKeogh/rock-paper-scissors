@@ -6,7 +6,7 @@
   width: 35vw;
 
   .hall-of-fame-title {
-    font-size: 3vmin;
+    font-size: 2vmin;
     width: fit-content;
     margin: auto;
 
@@ -34,8 +34,8 @@
 
       .mat-header-cell,
       .mat-cell {
-        font-family: "Joystix" !important;
-        font-size: 1.8vmin;
+        font-family: "Joystix", sans-serif !important;
+        font-size: 1.6vmin;
         text-align: center;
         color: unset;
       }
@@ -55,5 +55,19 @@
 }
 
 .name-tooltip {
-  font-family: "Arcade Classic" !important;
+  font-family: "Joystix", sans-serif !important;
+}
+
+.slide-down {
+  position: relative;
+  animation: slide-down-animation 0.4s;
+}
+
+@keyframes slide-down-animation {
+  0% {
+    top: -300px;
+  }
+  100% {
+    top: 0;
+  }
 }

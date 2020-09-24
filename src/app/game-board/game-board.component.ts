@@ -1,47 +1,44 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import _delay from "lodash/delay";
-import _omit from "lodash/omit";
-import {
-  GameItemType,
-  GameResult,
-  Player,
-  PlayerImpl,
-  PlayerType
-} from "../game.model";
-import { GameService } from "../game.service";
-import { PlayerService } from "../player.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import _delay from 'lodash/delay';
+import _omit from 'lodash/omit';
+import { GameItemType, GameResult, Player, PlayerImpl, PlayerType } from '../game.model';
+import { GameService } from '../game.service';
+import { PlayerService } from '../player.service';
 
 @Component({
-  selector: "app-game-board",
-  templateUrl: "./game-board.component.html",
-  styleUrls: ["./game-board.component.scss"],
+  selector: 'app-game-board',
+  templateUrl: './game-board.component.html',
+  styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit {
+  computer: Player = new PlayerImpl('HAL', PlayerType.COMPUTER);
+
+  human?: Player;
+  goreEnabled = false;
+
+  humanResult?: GameResult;
+
+  hallOfFamePlayers: Player[];
+  goreEnabledStorageKey = 'rps-goreEnabled';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private playerService: PlayerService,
     private gameService: GameService
-  ) {}
-
-  human?: Player;
-  computer: Player = new PlayerImpl("HAL", PlayerType.COMPUTER);
-
-  humanResult?: GameResult;
-
-  hallOfFamePlayers: Player[];
-
-  goreEnabled: boolean = false;
-  goreEnabledStorageKey = "rps-goreEnabled";
+  ) {
+  }
 
   ngOnInit(): void {
-    const playerName = this.activatedRoute.snapshot.queryParams["playerName"];
-    !playerName && this.router.navigate(["/welcome"]);
+    const playerName = this.activatedRoute.snapshot.queryParams.playerName;
+    if (!playerName) {
+      this.router.navigate(['/welcome']);
+    }
 
     this.playerService.getPlayer(playerName).subscribe((player) => {
       if (!player) {
-        this.router.navigate(["/welcome"]);
+        this.router.navigate(['/welcome']);
       } else {
         this.human = PlayerImpl.from(player);
       }
@@ -52,11 +49,11 @@ export class GameBoardComponent implements OnInit {
     });
 
     this.goreEnabled =
-      localStorage.getItem(this.goreEnabledStorageKey) === "true";
+      localStorage.getItem(this.goreEnabledStorageKey) === 'true';
   }
 
   onNewGameClick() {
-    this.router.navigate(["/welcome"]);
+    this.router.navigate(['/welcome']);
   }
 
   onGoreSwitchClick() {
@@ -78,7 +75,7 @@ export class GameBoardComponent implements OnInit {
       );
 
       this.playerService
-        .updatePlayer(_omit(this.human, "currentScore", "playedItem"))
+        .updatePlayer(_omit(this.human, 'currentScore', 'playedItem'))
         .subscribe();
     }, 10);
   }

@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { GameItemType, GameResult, Player } from "./game.model";
+import { Injectable } from '@angular/core';
+import { GameItemType, GameResult, Player } from './game.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class GameService {
   determineResultAndRefreshScores(human: Player, computer: Player): GameResult {

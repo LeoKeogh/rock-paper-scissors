@@ -2,6 +2,7 @@
   font-size: 4vw;
   word-spacing: 0.5vmin;
   background: -webkit-linear-gradient(red, blue);
+  //noinspection CssInvalidPropertyValue
   background-clip: text;
   -webkit-text-fill-color: transparent;
   height: fit-content;
@@ -52,7 +53,7 @@
 
 .mat-input-element,
 .ng-star-inserted {
-  font-family: "Joystix" !important;
+  font-family: "Joystix", sans-serif !important;
 }
 
 /* Remove chrome's ugly input autofill style */

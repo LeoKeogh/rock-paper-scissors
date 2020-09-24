@@ -3,11 +3,12 @@
 Game designed and created by Leo Keogh.
 
 ## Browser compatibility
-- Full (recommended): Chrome (latest, tested: 85.0.4183.83), Firefox (latest, tested: 80.0.1)
-- Partial (CSS problems): Edge (latest, tested: 44.18362.449.0)
+- Full (recommended): Chrome (tested: 85.0.4183.102), Firefox (tested: 80.0.1)
+- Compatible (minor CSS problems): Chrome for Android (tested: 85.0.4183.120)
+- Partial (major CSS problems): Edge (latest, tested: 44.18362.449.0)
 
 ## Assets
-All images and fonts used are free with no attribution is required
+All images and fonts used are free where no attribution required
 
 ## Backend
 The application does not have a separate backend for proper data persistence.

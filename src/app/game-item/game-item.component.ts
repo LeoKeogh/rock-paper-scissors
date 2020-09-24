@@ -1,16 +1,10 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-} from "@angular/core";
-import { GameItemOrientation, GameItemType } from "../game.model";
+import { Component, EventEmitter, Input, OnChanges, Output, } from '@angular/core';
+import { GameItemOrientation, GameItemType } from '../game.model';
 
 @Component({
-  selector: "app-game-item",
-  templateUrl: "./game-item.component.html",
-  styleUrls: ["./game-item.component.scss"],
+  selector: 'app-game-item',
+  templateUrl: './game-item.component.html',
+  styleUrls: ['./game-item.component.scss'],
 })
 export class GameItemComponent implements OnChanges {
   @Input() itemType?: GameItemType;
@@ -18,12 +12,12 @@ export class GameItemComponent implements OnChanges {
 
   typeImgSrc?: string;
 
-  @Input() played: boolean = false;
+  @Input() played = false;
   @Input() orientation: GameItemOrientation = GameItemOrientation.UP;
 
-  @Input() goreEnabled: boolean = false;
+  @Input() goreEnabled = false;
 
-  @Output() onClick?: EventEmitter<any> = new EventEmitter();
+  @Output() clicksOnGameItem?: EventEmitter<any> = new EventEmitter();
 
   ngOnChanges(): void {
     if (this.itemType) {
@@ -35,6 +29,8 @@ export class GameItemComponent implements OnChanges {
   }
 
   onGameItemClick() {
-    this.onClick && this.onClick.emit(this.itemType);
+    if (this.clicksOnGameItem) {
+      this.clicksOnGameItem.emit(this.itemType);
+    }
   }
 }

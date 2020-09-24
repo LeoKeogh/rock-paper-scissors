@@ -12,7 +12,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: "Joystix";
+  font-family: "Joystix", sans-serif;
 }
 
 .button {
@@ -30,5 +30,5 @@ body {
 }
 
 .mat-tooltip {
-  font-family: "Joystix" !important;
+  font-family: "Joystix", sans-serif !important;
 }

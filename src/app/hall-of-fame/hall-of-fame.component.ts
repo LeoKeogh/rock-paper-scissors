@@ -1,11 +1,11 @@
-import { Component, DoCheck, Input, OnInit } from "@angular/core";
-import _sortBy from "lodash/sortBy";
-import { PlayerImpl } from "../game.model";
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import _sortBy from 'lodash/sortBy';
+import { PlayerImpl } from '../game.model';
 
 @Component({
-  selector: "app-hall-of-fame[players][playerName]",
-  templateUrl: "./hall-of-fame.component.html",
-  styleUrls: ["./hall-of-fame.component.scss"],
+  selector: 'app-hall-of-fame[players][playerName]',
+  templateUrl: './hall-of-fame.component.html',
+  styleUrls: ['./hall-of-fame.component.scss'],
 })
 export class HallOfFameComponent implements DoCheck, OnInit {
   @Input() players?: PlayerImpl[];
@@ -14,27 +14,27 @@ export class HallOfFameComponent implements DoCheck, OnInit {
   rankedPlayers?: PlayerImpl[];
 
   displayedColumns: string[] = [
-    "rank",
-    "name",
-    "played",
-    "won",
-    "draw",
-    "lost",
-    "winRatio",
+    'rank',
+    'name',
+    'played',
+    'won',
+    'draw',
+    'lost',
+    'winRatio',
   ];
 
-  visible: boolean = true;
-  visibleStorageKey = "rps-hall-of-fame-visible";
+  visible = true;
+  visibleStorageKey = 'rps-hall-of-fame-visible';
 
   ngOnInit(): void {
-    this.visible = localStorage.getItem(this.visibleStorageKey) !== "false";
+    this.visible = localStorage.getItem(this.visibleStorageKey) !== 'false';
   }
 
   ngDoCheck(): void {
     if (this.players) {
       this.rankedPlayers = _sortBy(
         this.players,
-        "totalScore.winRatio"
+        'totalScore.winRatio'
       ).reverse();
     }
   }

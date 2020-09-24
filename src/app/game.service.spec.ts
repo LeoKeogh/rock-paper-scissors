@@ -1,25 +1,18 @@
-import { TestBed } from "@angular/core/testing";
-import {
-  GameItemType,
-  GameResult,
-  Player,
-  PlayerImpl,
-  PlayerType,
-  ScoreImpl
-} from "./game.model";
-import { GameService } from "./game.service";
+import { TestBed } from '@angular/core/testing';
+import { GameItemType, GameResult, Player, PlayerImpl, PlayerType, ScoreImpl } from './game.model';
+import { GameService } from './game.service';
 
-describe("GameService", () => {
+describe('GameService', () => {
   let service: GameService;
 
   const humanInit = new PlayerImpl(
-    "beavis",
+    'beavis',
     PlayerType.HUMAN,
     /*currentScore*/ new ScoreImpl(1, 0, 2, 33),
     /*totalScore*/ new ScoreImpl(1, 0, 3, 25)
   );
   const computerInit = new PlayerImpl(
-    "HAL",
+    'HAL',
     PlayerType.COMPUTER,
     /*currentScore*/ new ScoreImpl(2, 0, 1, 67),
     /*totalScore*/ new ScoreImpl(3, 0, 1, 75)
@@ -30,12 +23,12 @@ describe("GameService", () => {
     service = TestBed.inject(GameService);
   });
 
-  it("should be created", () => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
   const expectHumanWon = (human: Player) => {
-    let expectedHuman = PlayerImpl.from(humanInit);
+    const expectedHuman = PlayerImpl.from(humanInit);
     expectedHuman.currentScore.won++;
     expectedHuman.currentScore.winRatio = 50;
     expectedHuman.totalScore.won++;
@@ -46,7 +39,7 @@ describe("GameService", () => {
   };
 
   const expectHumanDraw = (human: Player) => {
-    let expectedHuman = PlayerImpl.from(humanInit);
+    const expectedHuman = PlayerImpl.from(humanInit);
     expectedHuman.currentScore.draw++;
     expectedHuman.currentScore.winRatio = 33;
     expectedHuman.totalScore.draw++;
@@ -57,7 +50,7 @@ describe("GameService", () => {
   };
 
   const expectHumanLost = (human: Player) => {
-    let expectedHuman = PlayerImpl.from(humanInit);
+    const expectedHuman = PlayerImpl.from(humanInit);
     expectedHuman.currentScore.lost++;
     expectedHuman.currentScore.winRatio = 25;
     expectedHuman.totalScore.lost++;
@@ -68,7 +61,7 @@ describe("GameService", () => {
   };
 
   const expectComputerWon = (computer: Player) => {
-    let expectedComputer = PlayerImpl.from(computerInit);
+    const expectedComputer = PlayerImpl.from(computerInit);
     expectedComputer.currentScore.won++;
     expectedComputer.currentScore.winRatio = 75;
     expectedComputer.totalScore.won++;
@@ -79,7 +72,7 @@ describe("GameService", () => {
   };
 
   const expectComputerDraw = (computer: Player) => {
-    let expectedComputer = PlayerImpl.from(computerInit);
+    const expectedComputer = PlayerImpl.from(computerInit);
     expectedComputer.currentScore.draw++;
     expectedComputer.currentScore.winRatio = 67;
     expectedComputer.totalScore.draw++;
@@ -90,7 +83,7 @@ describe("GameService", () => {
   };
 
   const expectComputerLost = (computer: Player) => {
-    let expectedComputer = PlayerImpl.from(computerInit);
+    const expectedComputer = PlayerImpl.from(computerInit);
     expectedComputer.currentScore.lost++;
     expectedComputer.currentScore.winRatio = 50;
     expectedComputer.totalScore.lost++;
@@ -100,7 +93,7 @@ describe("GameService", () => {
     expect(computer.totalScore).toEqual(expectedComputer.totalScore);
   };
 
-  it("should determine that human has won with paper vs rock and update scores accordingly", () => {
+  it('should determine that human has won with paper vs rock and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.PAPER;
     const computer = PlayerImpl.from(computerInit);
@@ -116,7 +109,7 @@ describe("GameService", () => {
     expectComputerLost(computer);
   });
 
-  it("should determine that human has won with scissors vs paper and update scores accordingly", () => {
+  it('should determine that human has won with scissors vs paper and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.SCISSORS;
     const computer = PlayerImpl.from(computerInit);
@@ -132,7 +125,7 @@ describe("GameService", () => {
     expectComputerLost(computer);
   });
 
-  it("should determine that human has won with rock vs scissors and update scores accordingly", () => {
+  it('should determine that human has won with rock vs scissors and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.ROCK;
     const computer = PlayerImpl.from(computerInit);
@@ -148,7 +141,7 @@ describe("GameService", () => {
     expectComputerLost(computer);
   });
 
-  it("should determine that human has lost with paper vs scissors and update scores accordingly", () => {
+  it('should determine that human has lost with paper vs scissors and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.PAPER;
     const computer = PlayerImpl.from(computerInit);
@@ -164,7 +157,7 @@ describe("GameService", () => {
     expectComputerWon(computer);
   });
 
-  it("should determine that human has lost with scissors vs rock and update scores accordingly", () => {
+  it('should determine that human has lost with scissors vs rock and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.SCISSORS;
     const computer = PlayerImpl.from(computerInit);
@@ -180,7 +173,7 @@ describe("GameService", () => {
     expectComputerWon(computer);
   });
 
-  it("should determine that human has lost with rock vs paper and update scores accordingly", () => {
+  it('should determine that human has lost with rock vs paper and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.ROCK;
     const computer = PlayerImpl.from(computerInit);
@@ -196,7 +189,7 @@ describe("GameService", () => {
     expectComputerWon(computer);
   });
 
-  it("should determine a draw with rocks and update scores accordingly", () => {
+  it('should determine a draw with rocks and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.ROCK;
     const computer = PlayerImpl.from(computerInit);
@@ -212,7 +205,7 @@ describe("GameService", () => {
     expectComputerDraw(computer);
   });
 
-  it("should determine a draw with papers and update scores accordingly", () => {
+  it('should determine a draw with papers and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.PAPER;
     const computer = PlayerImpl.from(computerInit);
@@ -228,7 +221,7 @@ describe("GameService", () => {
     expectComputerDraw(computer);
   });
 
-  it("should determine a draw with scissors and update scores accordingly", () => {
+  it('should determine a draw with scissors and update scores accordingly', () => {
     const human = PlayerImpl.from(humanInit);
     human.playedItem = GameItemType.SCISSORS;
     const computer = PlayerImpl.from(computerInit);
@@ -244,7 +237,7 @@ describe("GameService", () => {
     expectComputerDraw(computer);
   });
 
-  it("should get a game item type", () => {
+  it('should get a game item type', () => {
     const itemType = service.getRandomItemType();
 
     expect(

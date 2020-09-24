@@ -20,7 +20,7 @@
   ></app-game-items-played>
 
   <div class="player-options">
-    <app-game-items (onClick)="onGameItemClick($event)"></app-game-items>
+    <app-game-items (clicksOnGameItem)="onGameItemClick($event)"></app-game-items>
     <app-player-score [player]="human"></app-player-score>
   </div>
 

@@ -1,12 +1,11 @@
-import { Component } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { GameItemComponent } from "../game-item/game-item.component";
-import { GameItemType, GameResult } from "../game.model";
-import _delay from "lodash/delay";
+import { Component } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { GameItemComponent } from '../game-item/game-item.component';
+import { GameItemType, GameResult } from '../game.model';
 
-import { GameItemsPlayedComponent } from "./game-items-played.component";
+import { GameItemsPlayedComponent } from './game-items-played.component';
 
-describe("GameItemsPlayedComponent", () => {
+describe('GameItemsPlayedComponent', () => {
   let component: TestGameItemsPlayedComponent;
   let fixture: ComponentFixture<TestGameItemsPlayedComponent>;
 
@@ -26,40 +25,40 @@ describe("GameItemsPlayedComponent", () => {
     fixture = TestBed.createComponent(TestGameItemsPlayedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    appGameItems = fixture.nativeElement.querySelectorAll("app-game-item");
+    appGameItems = fixture.nativeElement.querySelectorAll('app-game-item');
   });
 
-  const expectAppGameItems = (withMessage: string) => {
+  const expectAppGameItems = (_: string) => {
     expect(appGameItems.length).toEqual(2);
-    expect(appGameItems[0].id).toEqual("computerItem");
-    expect(appGameItems[0].getAttribute("ng-reflect-played")).toEqual("true");
-    expect(appGameItems[0].getAttribute("ng-reflect-item-type")).toEqual(
+    expect(appGameItems[0].id).toEqual('computerItem');
+    expect(appGameItems[0].getAttribute('ng-reflect-played')).toEqual('true');
+    expect(appGameItems[0].getAttribute('ng-reflect-item-type')).toEqual(
       component.computerItemType
     );
     expect(
-      appGameItems[0].getAttribute("ng-reflect-opponent-item-type")
+      appGameItems[0].getAttribute('ng-reflect-opponent-item-type')
     ).toEqual(component.humanItemType);
-    expect(appGameItems[0].getAttribute("ng-reflect-gore-enabled")).toEqual(
+    expect(appGameItems[0].getAttribute('ng-reflect-gore-enabled')).toEqual(
       `${component.goreEnabled}`
     );
-    expect(appGameItems[0].getAttribute("ng-reflect-orientation")).toEqual(
+    expect(appGameItems[0].getAttribute('ng-reflect-orientation')).toEqual(
       `down`
     );
 
-    expect(appGameItems[1].id).toEqual("humanItem");
-    expect(appGameItems[1].getAttribute("ng-reflect-played")).toEqual("true");
-    expect(appGameItems[1].getAttribute("ng-reflect-item-type")).toEqual(
+    expect(appGameItems[1].id).toEqual('humanItem');
+    expect(appGameItems[1].getAttribute('ng-reflect-played')).toEqual('true');
+    expect(appGameItems[1].getAttribute('ng-reflect-item-type')).toEqual(
       component.humanItemType
     );
     expect(
-      appGameItems[1].getAttribute("ng-reflect-opponent-item-type")
+      appGameItems[1].getAttribute('ng-reflect-opponent-item-type')
     ).toEqual(component.computerItemType);
-    expect(appGameItems[1].getAttribute("ng-reflect-gore-enabled")).toEqual(
+    expect(appGameItems[1].getAttribute('ng-reflect-gore-enabled')).toEqual(
       `${component.goreEnabled}`
     );
   };
 
-  it("should display 2 game items with human victory", (done) => {
+  it('should display 2 game items with human victory', (done) => {
     expect(component).toBeTruthy();
 
     component.humanItemType = GameItemType.SCISSORS;
@@ -69,13 +68,13 @@ describe("GameItemsPlayedComponent", () => {
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expectAppGameItems("Victory!");
+      expectAppGameItems('Victory!');
 
       done();
     });
   });
 
-  it("should display 2 game items with human defeat", (done) => {
+  it('should display 2 game items with human defeat', (done) => {
     expect(component).toBeTruthy();
 
     component.humanItemType = GameItemType.PAPER;
@@ -85,13 +84,13 @@ describe("GameItemsPlayedComponent", () => {
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expectAppGameItems("Defeat!");
+      expectAppGameItems('Defeat!');
 
       done();
     });
   });
 
-  it("should display 2 game items with stalemate", (done) => {
+  it('should display 2 game items with stalemate', (done) => {
     expect(component).toBeTruthy();
 
     component.humanItemType = GameItemType.PAPER;
@@ -101,7 +100,7 @@ describe("GameItemsPlayedComponent", () => {
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expectAppGameItems("Stalemate!");
+      expectAppGameItems('Stalemate!');
 
       done();
     });
@@ -110,7 +109,8 @@ describe("GameItemsPlayedComponent", () => {
 
 @Component({
   template:
-    '<app-game-items-played [computerItemType]="computerItemType" [humanItemType]="humanItemType" [goreEnabled]="goreEnabled" [humanResult]="humanResult" ></app-game-items-played>',
+    '<app-game-items-played [computerItemType]="computerItemType" [humanItemType]="humanItemType"'
+    + ' [goreEnabled]="goreEnabled" [humanResult]="humanResult" ></app-game-items-played>',
 })
 class TestGameItemsPlayedComponent {
   computerItemType: GameItemType;

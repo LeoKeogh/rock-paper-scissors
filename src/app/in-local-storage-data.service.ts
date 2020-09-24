@@ -1,23 +1,27 @@
-import { Injectable } from "@angular/core";
-import {
-  getStatusText,
-  InMemoryDbService,
-  RequestInfo,
-  ResponseOptions,
-  STATUS
-} from "angular-in-memory-web-api";
-import { Observable } from "rxjs";
-import { Player } from "./game.model";
+import { Injectable } from '@angular/core';
+import { getStatusText, InMemoryDbService, RequestInfo, ResponseOptions, STATUS } from 'angular-in-memory-web-api';
+import { Observable } from 'rxjs';
+import { Player } from './game.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class InLocalStorageDataService implements InMemoryDbService {
-  localStorageDbKey = "rps-playerDb";
+  localStorageDbKey = 'rps-playerDb';
 
   players: Player[];
 
-  createDb(requestInfo: RequestInfo) {
+  private static finishOptions(
+    options: ResponseOptions,
+    { headers, url }: RequestInfo
+  ) {
+    options.statusText = getStatusText(options.status);
+    options.headers = headers;
+    options.url = url;
+    return options;
+  }
+
+  createDb() {
     // create db from local storage
     this.retrieveFromLocalStorage();
     return { players: this.players };
@@ -35,7 +39,7 @@ export class InLocalStorageDataService implements InMemoryDbService {
         body: data,
         status: STATUS.OK,
       };
-      return this.finishOptions(options, requestInfo);
+      return InLocalStorageDataService.finishOptions(options, requestInfo);
     });
   }
 
@@ -49,7 +53,7 @@ export class InLocalStorageDataService implements InMemoryDbService {
         body: player,
         status: STATUS.OK,
       };
-      return this.finishOptions(options, requestInfo);
+      return InLocalStorageDataService.finishOptions(options, requestInfo);
     });
   }
 
@@ -58,7 +62,7 @@ export class InLocalStorageDataService implements InMemoryDbService {
       const player = requestInfo.utils.getJsonBody(requestInfo.req);
       const index = this.players.findIndex((p) => p.name === player.name);
       if (index < 0) {
-        return this.finishOptions(
+        return InLocalStorageDataService.finishOptions(
           {
             body: { error: `Player with name ${player.name} does not exist` },
             status: STATUS.BAD_REQUEST,
@@ -73,7 +77,7 @@ export class InLocalStorageDataService implements InMemoryDbService {
       const options: ResponseOptions = {
         status: STATUS.NO_CONTENT,
       };
-      return this.finishOptions(options, requestInfo);
+      return InLocalStorageDataService.finishOptions(options, requestInfo);
     });
   }
 
@@ -83,11 +87,11 @@ export class InLocalStorageDataService implements InMemoryDbService {
       // decode from base64 (to confuse cheaters ;))
       const playerDbJson = localStorageValue
         ? atob(localStorage.getItem(this.localStorageDbKey))
-        : "[]";
+        : '[]';
       // const playerDbJson = localStorageValue || "[]"
       this.players = JSON.parse(playerDbJson);
     } catch (e) {
-      console.error("Failed to retrive local storage data (data corrupted?)");
+      console.error('Failed to retrieve local storage data (data corrupted?)');
       this.players = [];
     }
   }
@@ -97,15 +101,5 @@ export class InLocalStorageDataService implements InMemoryDbService {
     const localStorageValue = btoa(JSON.stringify(this.players));
     // const localStorageValue = JSON.stringify(this.players);
     localStorage.setItem(this.localStorageDbKey, localStorageValue);
-  }
-
-  private finishOptions(
-    options: ResponseOptions,
-    { headers, url }: RequestInfo
-  ) {
-    options.statusText = getStatusText(options.status);
-    options.headers = headers;
-    options.url = url;
-    return options;
   }
 }

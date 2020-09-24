@@ -1,17 +1,18 @@
-import { Component } from "@angular/core";
-import { Router } from "@angular/router";
-import { PlayerImpl } from "../game.model";
-import { PlayerService } from "../player.service";
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { PlayerImpl } from '../game.model';
+import { PlayerService } from '../player.service';
 
 @Component({
-  selector: "app-welcome",
-  templateUrl: "./welcome.component.html",
-  styleUrls: ["./welcome.component.scss"],
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent {
   playerName?: string;
 
-  constructor(private playerService: PlayerService, private router: Router) {}
+  constructor(private playerService: PlayerService, private router: Router) {
+  }
 
   onSubmit() {
     this.playerName = this.playerName?.trim()?.toLowerCase();
@@ -25,7 +26,7 @@ export class WelcomeComponent {
           .addPlayer(new PlayerImpl(this.playerName))
           .subscribe();
       }
-      this.router.navigate(["/game-board"], {
+      this.router.navigate(['/game-board'], {
         queryParams: { playerName: this.playerName },
       });
     });

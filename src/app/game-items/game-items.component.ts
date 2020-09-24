@@ -1,19 +1,22 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { GameItemType } from "../game.model";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { GameItemType } from '../game.model';
 
 @Component({
-  selector: "app-game-items",
-  templateUrl: "./game-items.component.html",
-  styleUrls: ["./game-items.component.scss"],
+  selector: 'app-game-items',
+  templateUrl: './game-items.component.html',
+  styleUrls: ['./game-items.component.scss'],
 })
 export class GameItemsComponent {
-  @Output() onClick?: EventEmitter<any> = new EventEmitter();
+  @Output() clicksOnGameItem?: EventEmitter<any> = new EventEmitter();
 
   GameItemType = GameItemType;
 
-  constructor() {}
+  constructor() {
+  }
 
   onGameItemClick(itemType: GameItemType) {
-    this.onClick && this.onClick.emit(itemType);
+    if (this.clicksOnGameItem) {
+      this.clicksOnGameItem.emit(itemType);
+    }
   }
 }
