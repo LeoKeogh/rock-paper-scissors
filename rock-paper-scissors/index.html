@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Rock Paper Scissors</title>
-  <base href="/">
+  <base href="rock-paper-scissors">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 <link rel="stylesheet" href="styles.642f5b8b69cb87dcc27c.css"></head>
@@ -15,16 +15,14 @@
       delete sessionStorage.redirect;
       if (redirect && redirect != location.href) {
         history.replaceState(null, null, redirect);
-        // REMOVE THIS - just showing the redirect route in the UI
-        document.body.setAttribute('message', 'This page was redirected by 404.html, from the route: ' + redirect);
+        console.log('This page was redirected by 404.html, from the route: ' + redirect);
       }
       else {
-        // REMOVE THIS - just showing the redirect route in the UI
-        document.body.setAttribute('message', 'This page was loaded directly from the index.html file');
+        console.log('This page was loaded directly from the index.html file');
       }
     })();
   </script>
 
   <app-root></app-root>
-<script src="runtime-es2015.0811dcefd377500b5b1a.js" type="module"></script><script src="runtime-es5.0811dcefd377500b5b1a.js" nomodule defer></script><script src="polyfills-es5.c219b7059a7feb126472.js" nomodule defer></script><script src="polyfills-es2015.3fd94ed6a324eee92aec.js" type="module"></script><script src="main-es2015.d80d0a0117a607eb97d1.js" type="module"></script><script src="main-es5.d80d0a0117a607eb97d1.js" nomodule defer></script></body>
+<script src="runtime-es2015.0811dcefd377500b5b1a.js" type="module"></script><script src="runtime-es5.0811dcefd377500b5b1a.js" nomodule defer></script><script src="polyfills-es5.c219b7059a7feb126472.js" nomodule defer></script><script src="polyfills-es2015.3fd94ed6a324eee92aec.js" type="module"></script><script src="main-es2015.bc30e41944bc6e21c410.js" type="module"></script><script src="main-es5.bc30e41944bc6e21c410.js" nomodule defer></script></body>
 </html>
