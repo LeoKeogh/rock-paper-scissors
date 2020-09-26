@@ -33,12 +33,12 @@ export class GameBoardComponent implements OnInit {
   ngOnInit(): void {
     const playerName = this.activatedRoute.snapshot.queryParams.playerName;
     if (!playerName) {
-      this.router.navigate(['/welcome']);
+      this.router.navigate(['/']);
     }
 
     this.playerService.getPlayer(playerName).subscribe((player) => {
       if (!player) {
-        this.router.navigate(['/welcome']);
+        this.router.navigate(['/']);
       } else {
         this.human = PlayerImpl.from(player);
       }
@@ -53,7 +53,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   onNewGameClick() {
-    this.router.navigate(['/welcome']);
+    this.router.navigate(['/']);
   }
 
   onGoreSwitchClick() {

@@ -4,9 +4,9 @@ import { GameBoardComponent } from './game-board/game-board.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
-  { path: 'welcome', component: WelcomeComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'game-board', component: GameBoardComponent },
-  { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

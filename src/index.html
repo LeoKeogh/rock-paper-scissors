@@ -8,6 +8,21 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 </head>
 <body>
+  <script>
+    // PArt of hack to get SPA to work in GitHub Pages (https://github.com/csuwildcat/sghpa)
+    (function(){
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+        console.log('This page was redirected by 404.html, from the route: ' + redirect);
+      }
+      else {
+        console.log('This page was loaded directly from the index.html file');
+      }
+    })();
+  </script>
+
   <app-root></app-root>
 </body>
 </html>

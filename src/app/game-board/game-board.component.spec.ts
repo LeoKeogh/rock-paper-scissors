@@ -107,7 +107,7 @@ describe('GameBoardComponent', () => {
   it('should navigate to /welcome when playerName not in URL', () => {
     expect(component).toBeTruthy();
 
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/welcome']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should navigate to /welcome when player does not exist', () => {
@@ -117,7 +117,7 @@ describe('GameBoardComponent', () => {
     component.ngOnInit();
 
     expect(playerServiceSpy.getPlayer).toHaveBeenCalledWith('kenny');
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/welcome']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should init game board when player exists', (done) => {
