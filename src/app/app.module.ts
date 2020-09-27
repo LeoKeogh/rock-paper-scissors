@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HallOfFameComponent } from './hall-of-fame/hall-of-fame.component';
 import { GameItemsComponent } from './game-items/game-items.component';
 import { GameItemsPlayedComponent } from './game-items-played/game-items-played.component';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { GameItemsPlayedComponent } from './game-items-played/game-items-played.
     MatTooltipModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    MatRippleModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

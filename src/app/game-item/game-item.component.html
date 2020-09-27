@@ -1,4 +1,12 @@
-<div class="game-item" [attr.data-played]="played">
+<div
+  class="game-item"
+  [attr.data-played]="played"
+  matRipple
+  [matRippleUnbounded]="true"
+  [matRippleRadius]="40"
+  [matRippleColor]="'rgba(202, 151, 42, 0.253)'"
+  [matRippleDisabled]="played"
+>
   <img
     *ngIf="itemType"
     src="{{ typeImgSrc }}"
@@ -9,6 +17,6 @@
       'animate-top': played && orientation === 'down',
       'animate-bottom': played && orientation === 'up'
     }"
-    alt="{{itemType}}"
+    alt="{{ itemType }}"
   />
 </div>
