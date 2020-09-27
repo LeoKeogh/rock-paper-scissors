@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatRippleModule } from '@angular/material/core';
 import { GameItemComponent } from '../game-item/game-item.component';
 import { GameItemType, GameResult } from '../game.model';
 
@@ -18,6 +19,7 @@ describe('GameItemsPlayedComponent', () => {
         TestGameItemsPlayedComponent,
         GameItemComponent,
       ],
+      imports: [MatRippleModule],
     }).compileComponents();
   }));
 

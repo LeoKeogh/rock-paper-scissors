@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { GameItemOrientation, GameItemType } from '../game.model';
 import { GameItemComponent } from './game-item.component';
@@ -14,7 +15,7 @@ describe('GameItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [GameItemComponent, TestGameItemComponent],
-      imports: [MatInputModule],
+      imports: [MatRippleModule],
     }).compileComponents();
   }));
 

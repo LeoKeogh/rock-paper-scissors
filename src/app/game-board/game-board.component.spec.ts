@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import { MatRippleModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -83,6 +84,7 @@ describe('GameBoardComponent', () => {
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
         MatTableModule,
+        MatRippleModule
       ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
