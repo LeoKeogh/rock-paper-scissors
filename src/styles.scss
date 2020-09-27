@@ -16,11 +16,12 @@ body {
 }
 
 .button {
-  padding: 3px;
+  padding: 4px;
   border: solid brown 2px;
   color: brown;
   width: fit-content;
   user-select: none;
+  border-radius: 50px;
 
   &:hover {
     cursor: pointer;
