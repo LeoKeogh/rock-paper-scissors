@@ -24,7 +24,6 @@ export class GameItemsPlayedComponent implements OnChanges {
 
     // small delay for css animation
     _delay(() => {
-      window.navigator.vibrate(200);
       switch (this.humanResult) {
         case GameResult.WIN:
           this.resultMessage = 'You win!';
