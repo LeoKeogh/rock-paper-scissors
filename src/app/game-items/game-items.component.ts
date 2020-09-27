@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GameItemType } from '../game.model';
 
 @Component({
@@ -8,6 +8,8 @@ import { GameItemType } from '../game.model';
 })
 export class GameItemsComponent {
   @Output() clicksOnGameItem?: EventEmitter<any> = new EventEmitter();
+
+  @Input() easterEnabled: boolean = false
 
   GameItemType = GameItemType;
 

@@ -16,6 +16,7 @@ export class GameItemComponent implements OnChanges {
   @Input() orientation: GameItemOrientation = GameItemOrientation.UP;
 
   @Input() goreEnabled = false;
+  @Input() easterEnabled: boolean = false;
 
   @Output() clicksOnGameItem?: EventEmitter<any> = new EventEmitter();
 
@@ -23,13 +24,14 @@ export class GameItemComponent implements OnChanges {
     if (this.itemType) {
       this.typeImgSrc =
         this.opponentItemType && this.goreEnabled
-          ? `assets/images/${this.itemType}-vs-${this.opponentItemType}.png`
-          : `assets/images/${this.itemType}.png`;
+          ? `assets/images/${this.itemType}-vs-${this.opponentItemType}${this.easterEnabled ? '-egged' : ''}.png`
+          : `assets/images/${this.itemType}${this.easterEnabled ? '-egged' : ''}.png`;
     }
   }
 
   onGameItemClick() {
     if (this.clicksOnGameItem) {
+      window.navigator.vibrate(200);
       this.clicksOnGameItem.emit(this.itemType);
     }
   }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatRippleModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
 import { GameItemOrientation, GameItemType } from '../game.model';
 import { GameItemComponent } from './game-item.component';
 
@@ -10,7 +9,7 @@ describe('GameItemComponent', () => {
   let fixture: ComponentFixture<TestGameItemComponent>;
 
   let imgElement: HTMLImageElement;
-  const mockOnClick: jasmine.Spy = jasmine.createSpy();
+  const mockOnClick: jasmine.Spy = jasmine.createSpy("clicksOnGameItem");
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -103,12 +102,41 @@ describe('GameItemComponent', () => {
       done();
     });
   });
+
+  it('should display a gory losing downward facing played game item with easter egg mode enabled', (done) => {
+    expect(component).toBeTruthy();
+    component.itemType = GameItemType.PAPER;
+    component.orientation = GameItemOrientation.DOWN;
+    component.played = true;
+    component.opponentItemType = GameItemType.SCISSORS;
+    component.goreEnabled = true;
+    component.easterEnabled = true;
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      imgElement = fixture.nativeElement.querySelector('img');
+      expect(imgElement).toBeTruthy();
+      expect(
+        imgElement.src.endsWith(
+          `assets/images/${component.itemType}-vs-${component.opponentItemType}-egged.png`
+        )
+      ).toBeTrue();
+      expect(imgElement.getAttribute('data-played')).toEqual(
+        `${component.played}`
+      );
+      expect(imgElement.getAttribute('data-orientation')).toEqual(
+        `${component.orientation}`
+      );
+
+      done();
+    });
+  });
 });
 
 @Component({
   template:
     '<app-game-item [itemType]="itemType" [played]="played"  [orientation]="orientation" [opponentItemType]="opponentItemType"' +
-    ' [goreEnabled]="goreEnabled" (clicksOnGameItem)="clicksOnGameItem($event)"></app-game-item>',
+    ' [goreEnabled]="goreEnabled" [easterEnabled]="easterEnabled" (clicksOnGameItem)="clicksOnGameItem($event)"></app-game-item>',
 })
 class TestGameItemComponent {
   itemType?: GameItemType;
@@ -118,6 +146,7 @@ class TestGameItemComponent {
   orientation: GameItemOrientation = GameItemOrientation.UP;
 
   goreEnabled = false;
+  easterEnabled = false;
 
   clicksOnGameItem?: () => void;
 }

@@ -1,10 +1,10 @@
 <div class="game-board">
-  <span class="title">Rock Paper Scissors</span>
+  <span class="game-board-title">{{ title }}</span>
   <div class="buttons">
-    <div class="new-game-button button" (click)="onNewGameClick()">
+    <div class="new-game-button button" (click)="clicksOnNewGame()">
       New Game
     </div>
-    <div class="enable-gore-button button" (click)="onGoreSwitchClick()">
+    <div class="enable-gore-button button" (click)="clicksOnGoreSwitch()">
       {{ goreEnabled ? "Disable Gore" : "Enable Gore" }}
     </div>
   </div>
@@ -16,11 +16,15 @@
     [computerItemType]="computer?.playedItem"
     [humanItemType]="human?.playedItem"
     [goreEnabled]="goreEnabled"
+    [easterEnabled]="easterEnabled"
     [humanResult]="humanResult"
   ></app-game-items-played>
 
   <div class="player-options">
-    <app-game-items (clicksOnGameItem)="onGameItemClick($event)"></app-game-items>
+    <app-game-items
+      [easterEnabled]="easterEnabled"
+      (clicksOnGameItem)="clicksOnGameItem($event)"
+    ></app-game-items>
     <app-player-score [player]="human"></app-player-score>
   </div>
 
@@ -28,4 +32,8 @@
     [players]="hallOfFamePlayers"
     [playerName]="human?.name"
   ></app-hall-of-fame>
+  <app-egg
+    [easterEnabled]="easterEnabled"
+    (clicksOnEgg)="clicksOnEgg()"
+  ></app-egg>
 </div>

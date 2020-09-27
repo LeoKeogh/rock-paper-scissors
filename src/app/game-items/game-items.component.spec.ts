@@ -52,11 +52,33 @@ describe('GameItemsComponent', () => {
       );
     });
   });
+
+  it('should display 3 game items (with one surprise easter egg item) and call onClick for each game item user click', (done) => {
+    expect(component).toBeTruthy();
+    component.easterEnabled = true;
+    expect(appGameItems.length).toEqual(3);
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      appGameItems.forEach((appGameItem, index) => {
+        expect(appGameItem.getAttribute('ng-reflect-item-type')).toEqual(
+          expectedGameItemTypes[index]
+        );
+        appGameItem.querySelector('img').click();
+        expect(mockOnClick).toHaveBeenCalledWith(
+          appGameItem.getAttribute('ng-reflect-item-type')
+        );
+      });
+
+      done();
+    });
+  });
 });
 
 @Component({
-  template: '<app-game-items (clicksOnGameItem)="clicksOnGameItem($event)"></app-game-items>',
+  template: '<app-game-items (clicksOnGameItem)="clicksOnGameItem($event)" [easterEnabled]="easterEnabled"></app-game-items>',
 })
 class TestGameItemsComponent {
   clicksOnGameItem?: (type: GameItemType) => void;
+  easterEnabled: boolean = false;
 }

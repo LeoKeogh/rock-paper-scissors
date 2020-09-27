@@ -12,6 +12,7 @@ export class GameItemsPlayedComponent implements OnChanges {
   @Input() computerItemType?: GameItemType;
 
   @Input() goreEnabled = false;
+  @Input() easterEnabled: boolean = false
 
   @Input() humanResult: GameResult;
 

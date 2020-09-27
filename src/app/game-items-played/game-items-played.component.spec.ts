@@ -76,6 +76,24 @@ describe('GameItemsPlayedComponent', () => {
     });
   });
 
+
+  it('should display 2 game items with human victory (easter egg activated)', (done) => {
+    expect(component).toBeTruthy();
+
+    component.humanItemType = GameItemType.SCISSORS;
+    component.computerItemType = GameItemType.PAPER;
+    component.humanResult = GameResult.WIN;
+    component.goreEnabled = true;
+    component.easterEnabled = true;
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expectAppGameItems('Victory!');
+
+      done();
+    });
+  });
+
   it('should display 2 game items with human defeat', (done) => {
     expect(component).toBeTruthy();
 
@@ -107,16 +125,18 @@ describe('GameItemsPlayedComponent', () => {
       done();
     });
   });
+
 });
 
 @Component({
   template:
     '<app-game-items-played [computerItemType]="computerItemType" [humanItemType]="humanItemType"'
-    + ' [goreEnabled]="goreEnabled" [humanResult]="humanResult" ></app-game-items-played>',
+    + ' [goreEnabled]="goreEnabled" [easterEnabled]="easterEnabled" [humanResult]="humanResult" ></app-game-items-played>',
 })
 class TestGameItemsPlayedComponent {
   computerItemType: GameItemType;
   humanItemType: GameItemType;
   goreEnabled: boolean;
+  easterEnabled: boolean = false;
   humanResult: GameResult;
 }

@@ -1,0 +1,15 @@
+<div
+  class="easter-egg"
+  [attr.data-enabled]="easterEnabled"
+  matRipple
+  [matRippleUnbounded]="true"
+  [matRippleRadius]="10"
+  [matRippleColor]="'rgba(202, 151, 42, 0.253)'"
+>
+  <img
+    src="{{ imgSrc }}"
+    (click)="onEggClick()"
+    alt="LE EGG"
+    title="Le Easter Egg"
+  />
+</div>

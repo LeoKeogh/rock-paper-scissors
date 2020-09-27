@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { AppRoutingModule } from '../app-routing.module';
+import { EggComponent } from '../egg/egg.component';
 import { GameItemComponent } from '../game-item/game-item.component';
 import { GameItemsPlayedComponent } from '../game-items-played/game-items-played.component';
 import { GameItemsComponent } from '../game-items/game-items.component';
@@ -44,9 +45,13 @@ describe('GameBoardComponent', () => {
   let appGameItems: HTMLElement;
   let appPlayerScoreHuman: HTMLElement;
   let appHallOfFame: HTMLElement;
+  let appEgg: HTMLElement;
 
+  let titleSpan: HTMLSpanElement;
   let newGameButton: HTMLDivElement;
   let enableGoreButton: HTMLDivElement;
+
+  let gameItem: HTMLImageElement;
 
   const gameService = new GameService();
 
@@ -75,6 +80,7 @@ describe('GameBoardComponent', () => {
         GameItemsComponent,
         GameItemComponent,
         HallOfFameComponent,
+        EggComponent,
       ],
       imports: [
         BrowserModule,
@@ -106,13 +112,13 @@ describe('GameBoardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to /welcome when playerName not in URL', () => {
+  it('should navigate to / when playerName not in URL', () => {
     expect(component).toBeTruthy();
 
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('should navigate to /welcome when player does not exist', () => {
+  it('should navigate to / when player does not exist', () => {
     expect(component).toBeTruthy();
 
     activatedRouteSpy.snapshot.queryParams.playerName = 'kenny';
@@ -129,12 +135,20 @@ describe('GameBoardComponent', () => {
       of(players.filter((p) => p.name === 'kenny')[0])
     );
     playerServiceSpy.getPlayers.and.returnValue(of(players));
-    component.ngOnInit();
 
-    component.goreEnabled = true;
+    // all stored booleans true (gore and easter egg mode activated)
+    spyOn(localStorage, 'getItem').and.returnValue("true");
+
+    component.ngOnInit();
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
+      titleSpan = fixture.nativeElement.getElementsByClassName(
+        'game-board-title'
+      )[0]
+      expect(titleSpan).toBeTruthy();
+      expect(titleSpan.textContent.trim()).toEqual('Rock Paper Shotgun');
+
       newGameButton = fixture.nativeElement.getElementsByClassName(
         'new-game-button'
       )[0];
@@ -158,12 +172,129 @@ describe('GameBoardComponent', () => {
         'app-player-score'
       )[1];
       appHallOfFame = fixture.nativeElement.querySelector('app-hall-of-fame');
+      appEgg = fixture.nativeElement.querySelector('app-egg');
 
       expect(appPlayerScoreComputer).toBeTruthy();
       expect(appGameItemsPlayed).toBeTruthy();
       expect(appGameItems).toBeTruthy();
       expect(appPlayerScoreHuman).toBeTruthy();
       expect(appHallOfFame).toBeTruthy();
+      expect(appEgg).toBeTruthy();
+
+      done();
+    });
+  });
+
+  it('should handle item click', (done) => {
+    expect(component).toBeTruthy();
+    activatedRouteSpy.snapshot.queryParams.playerName = 'kenny';
+    playerServiceSpy.getPlayer.and.returnValue(
+      of(players.filter((p) => p.name === 'kenny')[0])
+    );
+    playerServiceSpy.getPlayers.and.returnValue(of(players));
+    playerServiceSpy.getPlayers.and.returnValue(of(players));
+
+    // all stored booleans true (gore and easter egg mode activated)
+    spyOn(localStorage, 'getItem').and.returnValue("true");
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      gameItem = fixture.nativeElement.getElementsByClassName('rock')[0];
+      expect(gameItem).toBeTruthy();
+      expect(gameItem.src.endsWith('assets/images/rock-egged.png')).toBeTrue();
+
+      gameItem.click()
+
+      done();
+    });
+  })
+
+
+  it('should navigate to / on new game click', (done) => {
+    expect(component).toBeTruthy();
+    activatedRouteSpy.snapshot.queryParams.playerName = 'kenny';
+    playerServiceSpy.getPlayer.and.returnValue(
+      of(players.filter((p) => p.name === 'kenny')[0])
+    );
+    playerServiceSpy.getPlayers.and.returnValue(of(players));
+
+    // all stored booleans true (gore and easter egg mode activated)
+    spyOn(localStorage, 'getItem').and.returnValue("true");
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      newGameButton = fixture.nativeElement.getElementsByClassName(
+        'new-game-button'
+      )[0];
+      expect(newGameButton).toBeTruthy();
+      expect(newGameButton.textContent.trim()).toEqual('New Game');
+
+      newGameButton.click();
+
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+
+      done();
+    });
+  });
+
+  it('should disable gore mode on button click', (done) => {
+    expect(component).toBeTruthy();
+    activatedRouteSpy.snapshot.queryParams.playerName = 'kenny';
+    playerServiceSpy.getPlayer.and.returnValue(
+      of(players.filter((p) => p.name === 'kenny')[0])
+    );
+    playerServiceSpy.getPlayers.and.returnValue(of(players));
+
+    // all stored booleans true (gore and easter egg mode activated)
+    spyOn(localStorage, 'getItem').and.returnValue("true");
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      enableGoreButton = fixture.nativeElement.getElementsByClassName(
+        'enable-gore-button'
+      )[0];
+      expect(enableGoreButton).toBeTruthy();
+      expect(enableGoreButton.textContent.trim()).toEqual('Disable Gore');
+      expect(component.goreEnabled).toBeTrue();
+
+      enableGoreButton.click();
+
+      expect(component.goreEnabled).toBeFalse();
+
+      done();
+    });
+  });
+
+  it('should disable easter mode on egg click', (done) => {
+    expect(component).toBeTruthy();
+    activatedRouteSpy.snapshot.queryParams.playerName = 'kenny';
+    playerServiceSpy.getPlayer.and.returnValue(
+      of(players.filter((p) => p.name === 'kenny')[0])
+    );
+    playerServiceSpy.getPlayers.and.returnValue(of(players));
+
+    // all stored booleans true (gore and easter egg mode activated)
+    spyOn(localStorage, 'getItem').and.returnValue("true");
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      appEgg = fixture.nativeElement.querySelector('app-egg');
+      expect(appEgg).toBeTruthy();
+      const imgEgg = appEgg.querySelector('img');
+      expect(imgEgg).toBeTruthy();
+      expect(component.easterEnabled).toBeTrue();
+
+      imgEgg.click();
+
+      expect(component.easterEnabled).toBeFalse();
 
       done();
     });

@@ -2,13 +2,16 @@
   <app-game-item
     [itemType]="GameItemType.ROCK"
     (clicksOnGameItem)="onGameItemClick($event)"
+    [easterEnabled]="easterEnabled"
   ></app-game-item>
   <app-game-item
     [itemType]="GameItemType.PAPER"
     (clicksOnGameItem)="onGameItemClick($event)"
+    [easterEnabled]="easterEnabled"
   ></app-game-item>
   <app-game-item
     [itemType]="GameItemType.SCISSORS"
     (clicksOnGameItem)="onGameItemClick($event)"
+    [easterEnabled]="easterEnabled"
   ></app-game-item>
 </div>

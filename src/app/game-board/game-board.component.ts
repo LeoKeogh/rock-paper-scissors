@@ -12,15 +12,19 @@ import { PlayerService } from '../player.service';
   styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit {
+  title: string;
   computer: Player = new PlayerImpl('HAL', PlayerType.COMPUTER);
 
   human?: Player;
   goreEnabled = false;
+  goreEnabledStorageKey = 'rps-goreEnabled';
+
+  easterEnabled = false;
+  easterEnabledStorageKey = 'rps-easterEnabled';
 
   humanResult?: GameResult;
 
   hallOfFamePlayers: Player[];
-  goreEnabledStorageKey = 'rps-goreEnabled';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,18 +54,22 @@ export class GameBoardComponent implements OnInit {
 
     this.goreEnabled =
       localStorage.getItem(this.goreEnabledStorageKey) === 'true';
+
+    this.easterEnabled =
+      localStorage.getItem(this.easterEnabledStorageKey) === 'true';
+    this.updateTitle();
   }
 
-  onNewGameClick() {
+  clicksOnNewGame() {
     this.router.navigate(['/']);
   }
 
-  onGoreSwitchClick() {
+  clicksOnGoreSwitch() {
     this.goreEnabled = !this.goreEnabled;
     localStorage.setItem(this.goreEnabledStorageKey, `${this.goreEnabled}`);
   }
 
-  onGameItemClick(itemType: GameItemType): void {
+  clicksOnGameItem(itemType: GameItemType): void {
     this.human.playedItem = undefined;
     this.computer.playedItem = undefined;
     // small delay for css animation
@@ -79,4 +87,15 @@ export class GameBoardComponent implements OnInit {
         .subscribe();
     }, 10);
   }
+
+  clicksOnEgg(): void {
+    this.easterEnabled = !this.easterEnabled;
+    localStorage.setItem(this.easterEnabledStorageKey, `${this.easterEnabled}`);
+    this.updateTitle();
+  }
+
+  updateTitle(): void {
+    this.title = this.easterEnabled ? "Rock Paper Shotgun" : "Rock Paper Scissors"
+  }
+
 }
