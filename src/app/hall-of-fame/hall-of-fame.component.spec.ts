@@ -13,6 +13,7 @@ describe('HallOfFameComponent', () => {
   let fixture: ComponentFixture<TestHallOfFameComponent>;
 
   let titleDiv: HTMLDivElement;
+  let hideDiv: HTMLDivElement;
   let matSpinner: HTMLElement;
 
   let matTableHeaders: HTMLTableHeaderCellElement[];
@@ -57,11 +58,17 @@ describe('HallOfFameComponent', () => {
     titleDiv = fixture.nativeElement.getElementsByClassName(
       'hall-of-fame-title'
     )[0];
+    hideDiv = fixture.nativeElement.getElementsByClassName(
+      'button'
+    )[0];
   });
 
   it('should display spinner when players not defined', (done) => {
     expect(component).toBeTruthy();
     expect(titleDiv.textContent.trim().startsWith('Hall Of Fame')).toBeTrue();
+
+    expect(hideDiv).toBeTruthy();
+    expect(hideDiv.textContent.trim()).toEqual('Hide');
 
     component.players = undefined;
 
@@ -77,6 +84,9 @@ describe('HallOfFameComponent', () => {
   it('should display hall of fame with players sorted by total win ratio', (done) => {
     expect(component).toBeTruthy();
     expect(titleDiv.textContent.trim().startsWith('Hall Of Fame')).toBeTrue();
+
+    expect(hideDiv).toBeTruthy();
+    expect(hideDiv.textContent.trim()).toEqual('Hide');
 
     component.players = players;
     component.playerName = 'kenny';
@@ -130,7 +140,57 @@ describe('HallOfFameComponent', () => {
       done();
     });
   });
-});
+
+  it('should hide/show when user clicks on button', (done => {
+    expect(component).toBeTruthy();
+    expect(titleDiv.textContent.trim().startsWith('Hall Of Fame')).toBeTrue();
+
+    expect(hideDiv).toBeTruthy();
+    expect(hideDiv.textContent.trim()).toEqual('Hide');
+
+    component.players = players;
+    component.playerName = 'kenny';
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      matSpinner = fixture.nativeElement.querySelector('mat-spinner');
+      expect(matSpinner).toBeFalsy();
+
+      matTableHeaders = fixture.nativeElement.querySelector('thead');
+      expect(matTableHeaders).toBeTruthy();
+
+      matTableRows = fixture.nativeElement.querySelector('tbody');
+      expect(matTableRows).toBeTruthy();
+
+      // Hide
+      hideDiv.click();
+      fixture.detectChanges();
+      expect(hideDiv).toBeTruthy();
+      expect(hideDiv.textContent.trim()).toEqual('Show');
+
+      matTableHeaders = fixture.nativeElement.querySelector('thead');
+      expect(matTableHeaders).toBeFalsy();
+
+      matTableRows = fixture.nativeElement.querySelector('tbody');
+      expect(matTableRows).toBeFalsy();
+
+      // Show
+      hideDiv.click();
+      fixture.detectChanges();
+      expect(hideDiv).toBeTruthy();
+      expect(hideDiv.textContent.trim()).toEqual('Hide');
+
+      matTableHeaders = fixture.nativeElement.querySelector('thead');
+      expect(matTableHeaders).toBeTruthy();
+
+      matTableRows = fixture.nativeElement.querySelector('tbody');
+      expect(matTableRows).toBeTruthy();
+
+      done();
+    });
+  }))
+})
+
 
 @Component({
   template:

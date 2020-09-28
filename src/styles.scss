@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 @font-face {
+  font-family: "Hellraiser";
+  src: local("Hellraiser"),
+    url(./assets/fonts/hellraiser-bloody.ttf) format("truetype");
+}
+
+@font-face {
   font-family: "Joystix";
   src: local("Joystix"),
     url(./assets/fonts/joystix-monospace.ttf) format("truetype");

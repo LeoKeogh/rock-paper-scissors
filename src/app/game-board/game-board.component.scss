@@ -10,6 +10,18 @@
     -webkit-text-fill-color: transparent;
 
     animation: move-from-welcome 0.8s linear;
+
+    &[data-gore-enabled="true"] {
+      font-family: 'Hellraiser', sans-serif;
+      text-transform: uppercase;
+      font-size: 1.5vw;
+      word-spacing: 1vw;
+      color: rgb(219, 19, 19);
+      background: white;
+      //noinspection CssInvalidPropertyValue
+      background-clip: unset;
+      -webkit-text-fill-color: unset;
+      }
   }
 
   @keyframes move-from-welcome {
