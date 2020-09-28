@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { easterEnabledStorageKey, goreEnabledStorageKey } from '../game-board/game-board.component';
 import { PlayerImpl } from '../game.model';
 import { PlayerService } from '../player.service';
 
@@ -8,10 +9,23 @@ import { PlayerService } from '../player.service';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
 })
-export class WelcomeComponent {
+export class WelcomeComponent implements OnInit {
+  title: string;
   playerName?: string;
 
+  easterEnabled: boolean = false;
+  goreEnabled: boolean = false;
+
   constructor(private playerService: PlayerService, private router: Router) {
+  }
+
+  ngOnInit() {
+    this.goreEnabled =
+      localStorage.getItem(goreEnabledStorageKey) === 'true';
+
+    this.easterEnabled =
+      localStorage.getItem(easterEnabledStorageKey) === 'true';
+    this.updateTitle();
   }
 
   onSubmit() {
@@ -30,5 +44,9 @@ export class WelcomeComponent {
         queryParams: { playerName: this.playerName },
       });
     });
+  }
+
+  updateTitle(): void {
+    this.title = this.easterEnabled ? "Rock Paper Shotgun&trade;" : "Rock Paper Scissors"
   }
 }

@@ -147,7 +147,7 @@ describe('GameBoardComponent', () => {
         'game-board-title'
       )[0]
       expect(titleSpan).toBeTruthy();
-      expect(titleSpan.textContent.trim()).toEqual('Rock Paper Shotgun');
+      expect(titleSpan.textContent.trim()).toEqual('Rock Paper Shotgun™');
 
       newGameButton = fixture.nativeElement.getElementsByClassName(
         'new-game-button'
@@ -292,9 +292,17 @@ describe('GameBoardComponent', () => {
       expect(imgEgg).toBeTruthy();
       expect(component.easterEnabled).toBeTrue();
 
+      titleSpan = fixture.nativeElement.getElementsByClassName(
+        'game-board-title'
+      )[0]
+      expect(titleSpan).toBeTruthy();
+      expect(titleSpan.textContent.trim()).toEqual('Rock Paper Shotgun™');
+
       imgEgg.click();
 
       expect(component.easterEnabled).toBeFalse();
+
+      expect(titleSpan.textContent.trim()).toEqual('Rock Paper Scissors');
 
       done();
     });

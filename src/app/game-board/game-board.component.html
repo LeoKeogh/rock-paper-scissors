@@ -1,5 +1,5 @@
 <div class="game-board">
-  <span class="game-board-title" [attr.data-gore-enabled]="goreEnabled">{{ title }}</span>
+  <span class="game-board-title" [attr.data-gore-enabled]="goreEnabled" [innerHTML]="title"></span>
   <div class="buttons">
     <div class="new-game-button button" (click)="clicksOnNewGame()">
       New Game

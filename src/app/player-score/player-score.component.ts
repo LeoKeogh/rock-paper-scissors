@@ -23,8 +23,8 @@ export class PlayerScoreComponent implements DoCheck {
       this.displayedName = `${this.player.name}${
         this.player.type === PlayerType.COMPUTER ? ' (Computer)' : ''
       }`;
-      this.refreshTooltip();
     }
+    this.refreshTooltip();
   }
 
   refreshTooltip() {

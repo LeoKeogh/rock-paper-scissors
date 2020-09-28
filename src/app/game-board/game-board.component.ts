@@ -6,6 +6,9 @@ import { GameItemType, GameResult, Player, PlayerImpl, PlayerType } from '../gam
 import { GameService } from '../game.service';
 import { PlayerService } from '../player.service';
 
+export const goreEnabledStorageKey = 'rps-goreEnabled';
+export const easterEnabledStorageKey = 'rps-easterEnabled';
+
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
@@ -17,10 +20,9 @@ export class GameBoardComponent implements OnInit {
 
   human?: Player;
   goreEnabled = false;
-  goreEnabledStorageKey = 'rps-goreEnabled';
 
   easterEnabled = false;
-  easterEnabledStorageKey = 'rps-easterEnabled';
+
 
   humanResult?: GameResult;
 
@@ -53,10 +55,10 @@ export class GameBoardComponent implements OnInit {
     });
 
     this.goreEnabled =
-      localStorage.getItem(this.goreEnabledStorageKey) === 'true';
+      localStorage.getItem(goreEnabledStorageKey) === 'true';
 
     this.easterEnabled =
-      localStorage.getItem(this.easterEnabledStorageKey) === 'true';
+      localStorage.getItem(easterEnabledStorageKey) === 'true';
     this.updateTitle();
   }
 
@@ -66,7 +68,7 @@ export class GameBoardComponent implements OnInit {
 
   clicksOnGoreSwitch() {
     this.goreEnabled = !this.goreEnabled;
-    localStorage.setItem(this.goreEnabledStorageKey, `${this.goreEnabled}`);
+    localStorage.setItem(goreEnabledStorageKey, `${this.goreEnabled}`);
   }
 
   clicksOnGameItem(itemType: GameItemType): void {
@@ -90,12 +92,12 @@ export class GameBoardComponent implements OnInit {
 
   clicksOnEgg(): void {
     this.easterEnabled = !this.easterEnabled;
-    localStorage.setItem(this.easterEnabledStorageKey, `${this.easterEnabled}`);
+    localStorage.setItem(easterEnabledStorageKey, `${this.easterEnabled}`);
     this.updateTitle();
   }
 
   updateTitle(): void {
-    this.title = this.easterEnabled ? "Rock Paper Shotgun" : "Rock Paper Scissors"
+    this.title = this.easterEnabled ? "Rock Paper Shotgun&trade;" : "Rock Paper Scissors"
   }
 
 }

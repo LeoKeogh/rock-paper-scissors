@@ -148,4 +148,24 @@ describe('WelcomeComponent', () => {
       done();
     });
   });
+
+  it('should display welcome page in gore + easter egg mode', (done) =>{
+    expect(component).toBeTruthy();
+    expect(titleDiv).toBeTruthy();
+    expect(titleDiv.textContent.trim()).toEqual("Rock Paper Scissors");
+
+    // all stored booleans true (gore and easter egg mode activated)
+    spyOn(localStorage, 'getItem').and.returnValue("true");
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      titleDiv = fixture.nativeElement.getElementsByClassName('title')[0];
+      expect(titleDiv.textContent.trim()).toEqual("Rock Paper Shotgun™");
+
+      done();
+    });
+
+  })
 });
