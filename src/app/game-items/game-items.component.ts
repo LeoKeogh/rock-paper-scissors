@@ -9,7 +9,7 @@ import { GameItemType } from '../game.model';
 export class GameItemsComponent {
   @Output() clicksOnGameItem?: EventEmitter<any> = new EventEmitter();
 
-  @Input() easterEnabled: boolean = false
+  @Input() easterEnabled = false;
 
   GameItemType = GameItemType;
 

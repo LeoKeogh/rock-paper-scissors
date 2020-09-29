@@ -9,7 +9,7 @@ describe('GameItemComponent', () => {
   let fixture: ComponentFixture<TestGameItemComponent>;
 
   let imgElement: HTMLImageElement;
-  const mockOnClick: jasmine.Spy = jasmine.createSpy("clicksOnGameItem");
+  const mockOnClick: jasmine.Spy = jasmine.createSpy('clicksOnGameItem');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -137,7 +137,7 @@ describe('GameBoardComponent', () => {
     playerServiceSpy.getPlayers.and.returnValue(of(players));
 
     // all stored booleans true (gore and easter egg mode activated)
-    spyOn(localStorage, 'getItem').and.returnValue("true");
+    spyOn(localStorage, 'getItem').and.returnValue('true');
 
     component.ngOnInit();
 
@@ -145,7 +145,7 @@ describe('GameBoardComponent', () => {
     fixture.whenStable().then(() => {
       titleSpan = fixture.nativeElement.getElementsByClassName(
         'game-board-title'
-      )[0]
+      )[0];
       expect(titleSpan).toBeTruthy();
       expect(titleSpan.textContent.trim()).toEqual('Rock Paper Shotgun™');
 
@@ -195,7 +195,7 @@ describe('GameBoardComponent', () => {
     playerServiceSpy.getPlayers.and.returnValue(of(players));
 
     // all stored booleans true (gore and easter egg mode activated)
-    spyOn(localStorage, 'getItem').and.returnValue("true");
+    spyOn(localStorage, 'getItem').and.returnValue('true');
 
     component.ngOnInit();
 
@@ -205,11 +205,11 @@ describe('GameBoardComponent', () => {
       expect(gameItem).toBeTruthy();
       expect(gameItem.src.endsWith('assets/images/rock-egged.png')).toBeTrue();
 
-      gameItem.click()
+      gameItem.click();
 
       done();
     });
-  })
+  });
 
 
   it('should navigate to / on new game click', (done) => {
@@ -221,7 +221,7 @@ describe('GameBoardComponent', () => {
     playerServiceSpy.getPlayers.and.returnValue(of(players));
 
     // all stored booleans true (gore and easter egg mode activated)
-    spyOn(localStorage, 'getItem').and.returnValue("true");
+    spyOn(localStorage, 'getItem').and.returnValue('true');
 
     component.ngOnInit();
 
@@ -250,7 +250,7 @@ describe('GameBoardComponent', () => {
     playerServiceSpy.getPlayers.and.returnValue(of(players));
 
     // all stored booleans true (gore and easter egg mode activated)
-    spyOn(localStorage, 'getItem').and.returnValue("true");
+    spyOn(localStorage, 'getItem').and.returnValue('true');
 
     component.ngOnInit();
 
@@ -280,7 +280,7 @@ describe('GameBoardComponent', () => {
     playerServiceSpy.getPlayers.and.returnValue(of(players));
 
     // all stored booleans true (gore and easter egg mode activated)
-    spyOn(localStorage, 'getItem').and.returnValue("true");
+    spyOn(localStorage, 'getItem').and.returnValue('true');
 
     component.ngOnInit();
 
@@ -294,7 +294,7 @@ describe('GameBoardComponent', () => {
 
       titleSpan = fixture.nativeElement.getElementsByClassName(
         'game-board-title'
-      )[0]
+      )[0];
       expect(titleSpan).toBeTruthy();
       expect(titleSpan.textContent.trim()).toEqual('Rock Paper Shotgun™');
 

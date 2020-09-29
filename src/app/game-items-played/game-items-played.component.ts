@@ -12,7 +12,7 @@ export class GameItemsPlayedComponent implements OnChanges {
   @Input() computerItemType?: GameItemType;
 
   @Input() goreEnabled = false;
-  @Input() easterEnabled: boolean = false
+  @Input() easterEnabled = false;
 
   @Input() humanResult: GameResult;
 
@@ -30,7 +30,7 @@ export class GameItemsPlayedComponent implements OnChanges {
           this.resultMessage = 'You win!';
           break;
         case GameResult.DRAW:
-          this.resultMessage = "It's a Draw!";
+          this.resultMessage = 'It\'s a Draw!';
           break;
         case GameResult.LOSE:
           this.resultMessage = 'You lose!';

@@ -20,9 +20,7 @@ export class GameBoardComponent implements OnInit {
 
   human?: Player;
   goreEnabled = false;
-
   easterEnabled = false;
-
 
   humanResult?: GameResult;
 
@@ -97,7 +95,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   updateTitle(): void {
-    this.title = this.easterEnabled ? "Rock Paper Shotgun&trade;" : "Rock Paper Scissors"
+    this.title = this.easterEnabled ? 'Rock Paper Shotgun&trade;' : 'Rock Paper Scissors';
   }
 
 }

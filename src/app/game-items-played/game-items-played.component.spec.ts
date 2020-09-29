@@ -137,6 +137,6 @@ class TestGameItemsPlayedComponent {
   computerItemType: GameItemType;
   humanItemType: GameItemType;
   goreEnabled: boolean;
-  easterEnabled: boolean = false;
+  easterEnabled = false;
   humanResult: GameResult;
 }

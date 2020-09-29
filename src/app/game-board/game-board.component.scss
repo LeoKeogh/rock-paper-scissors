@@ -4,7 +4,7 @@
   .game-board-title {
     font-size: 1.5vw;
     word-spacing: 0.5vw;
-    background: -webkit-linear-gradient(red, blue);
+    background: -webkit-linear-gradient(blue, red);
     //noinspection CssInvalidPropertyValue
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -16,12 +16,7 @@
       text-transform: uppercase;
       font-size: 1.85vw;
       word-spacing: 1.7vw;
-      color: rgb(219, 19, 19);
-      background: white;
-      //noinspection CssInvalidPropertyValue
-      background-clip: unset;
-      -webkit-text-fill-color: unset;
-      }
+    }
   }
 
   @keyframes move-from-welcome {
@@ -39,7 +34,7 @@
     flex-direction: row;
 
     .button {
-      font-size: 1.2vh;
+      font-size: 0.6vw;
       margin-left: 20px;
     }
   }

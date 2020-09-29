@@ -80,5 +80,5 @@ describe('GameItemsComponent', () => {
 })
 class TestGameItemsComponent {
   clicksOnGameItem?: (type: GameItemType) => void;
-  easterEnabled: boolean = false;
+  easterEnabled = false;
 }

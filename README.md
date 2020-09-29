@@ -2,6 +2,8 @@
 
 Game designed and created by Leo Keogh.
 
+Deployed: https://leokeogh.github.io/rock-paper-scissors/
+
 ## Browser compatibility
 - Full (recommended): Chrome (tested: 85.0.4183.102), Firefox (tested: 80.0.1), Edge (tested: 85.0.564.63)
 - Compatible (minor CSS problems): Chrome for Android (tested: 85.0.4183.120), Safari for iOS

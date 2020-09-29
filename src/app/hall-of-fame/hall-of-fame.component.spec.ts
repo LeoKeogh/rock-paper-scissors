@@ -188,8 +188,8 @@ describe('HallOfFameComponent', () => {
 
       done();
     });
-  }))
-})
+  }));
+});
 
 
 @Component({

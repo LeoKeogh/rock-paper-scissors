@@ -16,7 +16,7 @@ export class GameItemComponent implements OnChanges {
   @Input() orientation: GameItemOrientation = GameItemOrientation.UP;
 
   @Input() goreEnabled = false;
-  @Input() easterEnabled: boolean = false;
+  @Input() easterEnabled = false;
 
   @Output() clicksOnGameItem?: EventEmitter<any> = new EventEmitter();
 

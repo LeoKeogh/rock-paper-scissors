@@ -13,8 +13,8 @@ export class WelcomeComponent implements OnInit {
   title: string;
   playerName?: string;
 
-  easterEnabled: boolean = false;
-  goreEnabled: boolean = false;
+  easterEnabled = false;
+  goreEnabled = false;
 
   constructor(private playerService: PlayerService, private router: Router) {
   }
@@ -47,6 +47,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   updateTitle(): void {
-    this.title = this.easterEnabled ? "Rock Paper Shotgun&trade;" : "Rock Paper Scissors"
+    this.title = this.easterEnabled ? 'Rock Paper Shotgun&trade;' : 'Rock Paper Scissors';
   }
 }
